@@ -4,18 +4,24 @@ import "./App.css";
 
 function App() {
   return (
-    <Container style={{ backgroundImage: `url(${shopimg})` }}>
-      <Row>
-        <h1>Hello</h1>
-      </Row>
-      <Row>
+    <Container
+      style={{
+        backgroundImage: `url(${shopimg})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "100% 100%",
+        height: "600px",
+      }}
+    >
+      <Row className="h-100 py-4">
         <Col
-          md="5"
+          md="4"
+          className="mx-auto"
           style={{
             backgroundColor: "white",
+            borderRadius: "16px",
           }}
         >
-          <Modal.Dialog>
+          <Modal.Dialog className="h-100">
             <Modal.Header closeButton>
               <Modal.Title>Modal title</Modal.Title>
             </Modal.Header>
@@ -29,9 +35,6 @@ function App() {
               <Button variant="primary">Save changes</Button>
             </Modal.Footer>
           </Modal.Dialog>
-        </Col>
-        <Col md="7">
-          <h1>2nd Column</h1>
         </Col>
       </Row>
     </Container>
