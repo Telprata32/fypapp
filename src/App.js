@@ -1,5 +1,6 @@
 import shopimg from "./Images/Shopping_edited.jpg";
-import logo from "./Images/App Logo.png";
+import logo from "./Images/appLogo.svg";
+import { Link } from "react-router-dom";
 import {
   Container,
   Row,
@@ -12,9 +13,13 @@ import {
 } from "react-bootstrap";
 import "./App.css";
 
+// Import link to components for router
+
 function App() {
   return (
     <Container
+      fluid
+      className="vh-100"
       style={{
         backgroundImage: `url(${shopimg})`,
         backgroundRepeat: "no-repeat",
@@ -24,17 +29,20 @@ function App() {
     >
       <Row className="h-100 py-4">
         <Col
-          md="4"
-          className="mx-auto"
+          xs="4"
+          className="mx-auto pt-5 px-4 pb-4"
           style={{
             backgroundColor: "white",
             borderRadius: "16px",
           }}
         >
-          <div className="text-center">
+          <div className="text-center img-container">
             <Image src={logo} />
           </div>
-          <Form className="h-100 pt-5 px-2">
+          <Form
+            style={{ display: "inlineBlock" }}
+            className="h-76 mt-2 pt-5 px-5"
+          >
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="Enter email" />
@@ -47,15 +55,23 @@ function App() {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
-            <Stack gap="2" className="float-end" direction="horizontal">
-              <Button>Forgot Password</Button>
+
+            <Row>
+              If you don't have an account, click <Link>here</Link>
+            </Row>
+            <Stack
+              gap="2"
+              className="pt-4 mt-5 w-100 float-end align-bottom hstack gap-2"
+              direction="horizontal"
+            >
+              <Button className="float-start btn-danger">
+                Forgot Password
+              </Button>
               <Button
-                className="float-start ms-auto"
+                className="ms-auto btn-color-orange"
                 variant="primary"
                 type="submit"
+                style={{ backgroundColor: "#FEB272" }}
               >
                 Submit
               </Button>
