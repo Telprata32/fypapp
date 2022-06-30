@@ -10,3 +10,17 @@ img {
   width: 100%;
   height: 100%;
 }
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+}
+.navbar-brand > img {
+  position: relative;
+}
+
+.nav-link {
+  padding: 0%;
+}

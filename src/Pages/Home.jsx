@@ -20,8 +20,8 @@ function Home() {
     <Container className="px-0 mx-0 flex">
       <Navbar style={{ backgroundColor: "#FFEFDD" }} expand="lg">
         <Container>
-          <Navbar.Brand>
-            <Image src={logo} />
+          <Navbar.Brand className="py-0">
+            <img src={logo} />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
