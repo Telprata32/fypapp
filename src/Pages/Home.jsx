@@ -1,5 +1,6 @@
 import shopimg from "../Images/Shopping_edited.jpg";
 import logo from "../Images/appLogo.svg";
+import profpic from "../Images/istockphoto-1270067126-612x612.jpg";
 import { Link } from "react-router-dom";
 import {
   Navbar,
@@ -23,27 +24,10 @@ function Home() {
         style={{ backgroundColor: "#FFEFDD" }}
         expand="lg"
       >
-        <Navbar.Brand className="py-0">
+        <Navbar.Brand className="py-0 me-auto">
           <img src={logo} />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
+        <Nav style={{ backgroundImage: `url(${profpic})` }}></Nav>
       </Navbar>
     </Container>
   );

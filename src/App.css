@@ -24,3 +24,11 @@ img {
 .nav-link {
   padding: 0%;
 }
+
+.navbar-nav {
+  height: 50px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+  width: 50px;
+}
