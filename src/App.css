@@ -29,3 +29,14 @@
   background-size: cover;
   border-radius: 50%;
 }
+
+/* CSS for carousel */
+.carousel-inner {
+  width: auto;
+  height: 600px !important;
+}
+
+.carousel-item {
+  height: 100%;
+  position: absolute;
+}

@@ -18,40 +18,45 @@ import "../App.css";
 function Home() {
   return (
     <Container fluid className="px-0 mx-0">
-      <Navbar className="px-4 py-2" style={{ backgroundColor: "#FFEFDD" }}>
+      <Navbar
+        className="px-4 py-2 fixed-top mb-5"
+        style={{ backgroundColor: "#FFEFDD" }}
+      >
         <Navbar.Brand className="py-0 me-auto logo">
           <img src={logo} />
         </Navbar.Brand>
         <Nav style={{ backgroundImage: `url(${profpic})` }}></Nav>
       </Navbar>
 
-      <Carousel className="mx-5 mt-5">
-        <Carousel.Item>
-          <img className="d-block w-100" src={prod1} alt="First slide" />
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img className="d-block w-100" src={prod2} alt="Second slide" />
+      <Container className="pt-5">
+        <Carousel className="mx-5 mt-5 pt-5">
+          <Carousel.Item>
+            <img className="d-block w-100" src={prod1} alt="First slide" />
+            <Carousel.Caption>
+              <h3>First slide label</h3>
+              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img className="d-block w-100" src={prod2} alt="Second slide" />
 
-          <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img className="d-block w-100" src={prod3} alt="Third slide" />
+            <Carousel.Caption>
+              <h3>Second slide label</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img className="d-block w-100" src={prod3} alt="Third slide" />
 
-          <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
+            <Carousel.Caption>
+              <h3>Third slide label</h3>
+              <p>
+                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+              </p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
+      </Container>
     </Container>
   );
 }
