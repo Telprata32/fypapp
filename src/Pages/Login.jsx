@@ -39,7 +39,7 @@ function Login() {
             borderRadius: "16px",
           }}
         >
-          <div className="text-center img-container">
+          <div className="text-center img-container logo">
             <Image src={logo} />
           </div>
           <Form

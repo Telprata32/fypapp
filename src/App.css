@@ -3,7 +3,8 @@
   padding-top: 66.59%;
 }
 
-img {
+/* This part is the attributes for all the logo images */
+.logo img {
   position: absolute;
   top: 0;
   left: 0;
