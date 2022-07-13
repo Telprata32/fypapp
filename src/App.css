@@ -40,3 +40,18 @@
   height: 100%;
   position: absolute;
 }
+
+.carousel {
+  border-radius: 20px;
+}
+
+/* CSS for body container */
+.inner-container {
+  margin-top: 85px;
+}
+
+/* Set the cards height to a minimum */
+
+.card img {
+  height: 160px;
+}
