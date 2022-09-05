@@ -33,7 +33,7 @@ function Login() {
       <Row className="h-100 py-4">
         <Col
           xs="4"
-          className="mx-auto pt-5 px-4 pb-4"
+          className="mx-auto pt-4 px-4 pb-4"
           style={{
             backgroundColor: "white",
             borderRadius: "16px",
@@ -66,7 +66,7 @@ function Login() {
             </div>
             <Stack
               gap="2"
-              className="pt-4 mt-5 w-100 float-end align-bottom hstack gap-2"
+              className="pt-4 mt-3 w-100 float-end align-bottom hstack gap-2"
               direction="horizontal"
             >
               <Button className="float-start btn-danger">

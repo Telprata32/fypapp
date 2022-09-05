@@ -33,7 +33,7 @@ function Registration() {
       <Row className="h-100 py-4">
         <Col
           xs="4"
-          className="mx-auto pt-5 px-4 pb-4"
+          className="mx-auto pt-4 px-4 pb-4"
           style={{
             backgroundColor: "white",
             borderRadius: "16px",

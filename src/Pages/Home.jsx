@@ -1,4 +1,3 @@
-import shopimg from "../Images/Shopping_edited.jpg";
 import logo from "../Images/appLogo.svg";
 import profpic from "../Images/istockphoto-1270067126-612x612.jpg";
 import prod1 from "../Images/Prod1.jpg";
@@ -9,7 +8,7 @@ import futsal from "../Images/futsal.png";
 import fashion from "../Images/fashion2015.jpg";
 import babyprod from "../Images/babyprod.jpg";
 import idImg from "../Images/home.jpeg";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Navbar,
   Row,
@@ -17,11 +16,14 @@ import {
   Nav,
   Carousel,
   Card,
+  Button,
   Container,
 } from "react-bootstrap";
 import "../App.css";
 
 function Home() {
+  let navigate = useNavigate();
+
   return (
     <Container fluid className="px-0 mx-0">
       <Navbar
@@ -65,7 +67,10 @@ function Home() {
       </Container>
       <Row style={{ marginTop: "70px", paddingInline: "115px" }}>
         <Col>
-          <Card style={{ width: "18rem" }}>
+          <Card
+            style={{ width: "18rem", cursor: "pointer" }}
+            onClick={() => navigate("/toyshobbies")}
+          >
             <Card.Img variant="top" src={phone} />
             <Card.Body>
               <Card.Title>🎮 Toys and Hobbies</Card.Title>
@@ -76,7 +81,7 @@ function Home() {
           <Card style={{ width: "18rem" }}>
             <Card.Img variant="top" src={fashion} />
             <Card.Body>
-              <Card.Title>Fashion</Card.Title>
+              <Card.Title>👗 Fashion</Card.Title>
             </Card.Body>
           </Card>
         </Col>
@@ -84,7 +89,7 @@ function Home() {
           <Card style={{ width: "18rem" }}>
             <Card.Img variant="top" src={idImg} />
             <Card.Body>
-              <Card.Title>Home Appliances</Card.Title>
+              <Card.Title>🛋️ Home Appliances</Card.Title>
             </Card.Body>
           </Card>
         </Col>
@@ -92,7 +97,7 @@ function Home() {
           <Card style={{ width: "18rem" }}>
             <Card.Img variant="top" src={phone} />
             <Card.Body>
-              <Card.Title>Electronics</Card.Title>
+              <Card.Title>📱 Electronics</Card.Title>
             </Card.Body>
           </Card>
         </Col>
@@ -107,7 +112,7 @@ function Home() {
               style={{ backgroundColor: "#f0f0f0" }}
             />
             <Card.Body>
-              <Card.Title>Fitness</Card.Title>
+              <Card.Title>🏐 Fitness</Card.Title>
             </Card.Body>
           </Card>
         </Col>
@@ -115,7 +120,7 @@ function Home() {
           <Card style={{ width: "18rem" }}>
             <Card.Img variant="top" src={babyprod} />
             <Card.Body>
-              <Card.Title>Maternity</Card.Title>
+              <Card.Title>🍼 Maternity</Card.Title>
             </Card.Body>
           </Card>
         </Col>
