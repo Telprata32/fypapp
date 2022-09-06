@@ -26,16 +26,6 @@ function Home() {
 
   return (
     <Container fluid className="px-0 mx-0">
-      <Navbar
-        className="px-4 py-2 fixed-top mb-5"
-        style={{ backgroundColor: "#FFEFDD" }}
-      >
-        <Navbar.Brand className="py-0 me-auto logo">
-          <img src={logo} />
-        </Navbar.Brand>
-        <Nav style={{ backgroundImage: `url(${profpic})` }}></Nav>
-      </Navbar>
-
       <Container className="pt-5">
         <Carousel className="mx-1 mt-5 pt-5 mb-3">
           <Carousel.Item>

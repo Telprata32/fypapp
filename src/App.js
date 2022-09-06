@@ -4,10 +4,17 @@ import Registration from "./Pages/Registration";
 import Home from "./Pages/Home";
 import THobbies from "./Pages/Toyhobbies";
 import { Routes, Route } from "react-router-dom";
+import NavBar from "./Navbar";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 function App() {
+  const location = useLocation();
   return (
     <div>
+      {location.pathname != "/" && location.pathname != "/registration" && (
+        <NavBar />
+      )}
       <Routes>
         <Route path="/Home" element={<Home />} />
         <Route path="/" element={<Login />} />
