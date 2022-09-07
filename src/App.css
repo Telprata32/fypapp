@@ -55,3 +55,8 @@
 .card img {
   height: 160px;
 }
+
+/* Styles for the the Toys & Hobbies page */
+.tHobbies .card-subtitle {
+  color: #fd9843;
+}
