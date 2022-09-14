@@ -7,6 +7,7 @@ import phone from "../Images/phone.jpeg";
 import futsal from "../Images/futsal.png";
 import fashion from "../Images/fashion2015.jpg";
 import babyprod from "../Images/babyprod.jpg";
+import toys from "../Images/toys.jpg";
 import idImg from "../Images/home.jpeg";
 import { useNavigate } from "react-router-dom";
 import {
@@ -61,14 +62,14 @@ function Home() {
             style={{ width: "18rem", cursor: "pointer" }}
             onClick={() => navigate("/toyshobbies")}
           >
-            <Card.Img variant="top" src={phone} />
+            <Card.Img variant="top" src={toys} />
             <Card.Body>
               <Card.Title>🎮 Toys and Hobbies</Card.Title>
             </Card.Body>
           </Card>
         </Col>
         <Col>
-          <Card style={{ width: "18rem" }}>
+          <Card style={{ width: "18rem", cursor: "pointer" }}>
             <Card.Img variant="top" src={fashion} />
             <Card.Body>
               <Card.Title>👗 Fashion</Card.Title>
@@ -76,7 +77,7 @@ function Home() {
           </Card>
         </Col>
         <Col>
-          <Card style={{ width: "18rem" }}>
+          <Card style={{ width: "18rem", cursor: "pointer" }}>
             <Card.Img variant="top" src={idImg} />
             <Card.Body>
               <Card.Title>🛋️ Home Appliances</Card.Title>
@@ -84,7 +85,7 @@ function Home() {
           </Card>
         </Col>
         <Col>
-          <Card style={{ width: "18rem" }}>
+          <Card style={{ width: "18rem", cursor: "pointer" }}>
             <Card.Img variant="top" src={phone} />
             <Card.Body>
               <Card.Title>📱 Electronics</Card.Title>
@@ -95,7 +96,7 @@ function Home() {
 
       <Row style={{ marginTop: "70px", paddingInline: "115px" }}>
         <Col>
-          <Card style={{ width: "18rem" }}>
+          <Card style={{ width: "18rem", cursor: "pointer" }}>
             <Card.Img
               variant="top"
               src={futsal}
@@ -107,7 +108,7 @@ function Home() {
           </Card>
         </Col>
         <Col>
-          <Card style={{ width: "18rem" }}>
+          <Card style={{ width: "18rem", cursor: "pointer" }}>
             <Card.Img variant="top" src={babyprod} />
             <Card.Body>
               <Card.Title>🍼 Maternity</Card.Title>
