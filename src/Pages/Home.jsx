@@ -115,22 +115,8 @@ function Home() {
             </Card.Body>
           </Card>
         </Col>
-        <Col>
-          <Card style={{ width: "18rem", display: "none" }}>
-            <Card.Img variant="top" src="holder.js/100px180" />
-            <Card.Body>
-              <Card.Title>Card Title</Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col>
-          <Card style={{ width: "18rem", display: "none" }}>
-            <Card.Img variant="top" src="holder.js/100px180" />
-            <Card.Body>
-              <Card.Title>Card Title</Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
+        <Col></Col>
+        <Col></Col>
       </Row>
     </Container>
   );
