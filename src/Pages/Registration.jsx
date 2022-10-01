@@ -29,12 +29,11 @@ function Registration() {
     const accContract = Web3.eth.Contract(ACCOUNTS_ABI, ACCOUNTS_ADDRESS);
 
     // Now register the accounts into the blockchain using the smart contract's methods
+    accContract.methods.createAccount(email, pass);
 
     // Finally nagvigate to the home page
     navigate("/Home");
   }
-
-  const loadBlockChain = async () => {};
 
   return (
     <Container
@@ -60,6 +59,7 @@ function Registration() {
             <Image src={logo} />
           </div>
           <Form
+            onSubmit={handleSubmit(this.email, this.password)}
             style={{ display: "inlineBlock" }}
             className="h-76 mt-2 pt-5 px-5"
           >
@@ -90,7 +90,6 @@ function Registration() {
               </Button>
               <Button
                 className="ms-auto btn-color-orange"
-                onClick={handleSubmit}
                 variant="primary"
                 type="submit"
                 style={{ backgroundColor: "#FEB272" }}
