@@ -1,6 +1,7 @@
 import shopimg from "../Images/Shopping_edited.jpg";
 import logo from "../Images/appLogo.svg";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import {
   Container,
   Row,
@@ -11,13 +12,29 @@ import {
   Stack,
 } from "react-bootstrap";
 import "../App.css";
+import {
+  ACCOUNTS_ABI,
+  ACCOUNTS_ADDRESS,
+} from "../Contracts Configs/accounts_config.js";
+import Web3 from "web3";
 
 function Registration() {
   let navigate = useNavigate();
+  let [userEm, setEmail] = useState(""); // state for the storing the user account's email
+  let [userPass, setPass] = useState(""); // state for the storing the user account's password
 
-  function handleSubmit() {
+  function handleSubmit(email, pass) {
+    // Firstly load the web3 function to load the blockchain
+    const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
+    const accContract = Web3.eth.Contract(ACCOUNTS_ABI, ACCOUNTS_ADDRESS);
+
+    // Now register the accounts into the blockchain using the smart contract's methods
+
+    // Finally nagvigate to the home page
     navigate("/Home");
   }
+
+  const loadBlockChain = async () => {};
 
   return (
     <Container
