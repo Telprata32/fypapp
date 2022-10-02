@@ -20,20 +20,39 @@ import Web3 from "web3";
 
 function Registration() {
   let navigate = useNavigate();
+	let [contract, setContract] = useState({}); // State for storing the smart contract that is used for this page
+	let [blcAcc, setAccount] = useState(""); // State for storing the account of the transaction owner in the blockchain
   let [userEm, setEmail] = useState(""); // state for the storing the user account's email
   let [userPass, setPass] = useState(""); // state for the storing the user account's password
 
-  function handleSubmit(email, pass) {
+	const loadBlockChainData = async()=>{
     // Firstly load the web3 function to load the blockchain
-    const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
-    const accContract = Web3.eth.Contract(ACCOUNTS_ABI, ACCOUNTS_ADDRESS);
+    const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
+    const accounts = await web3.eth.getAccounts();
+    const accContract = new web3.eth.Contract(ACCOUNTS_ABI, ACCOUNTS_ADDRESS);
+		setContract(accContract);
+		setAccount(accounts[0]);
+	}
 
-    // Now register the accounts into the blockchain using the smart contract's methods
-    accContract.methods.createAccount(email, pass);
+  const handleSubmit = async (email, pass) => {
+    // register the accounts into the blockchain using the smart contract's methods
+    contract.methods.createAccount(userEm, userPass).send({ from: blcAcc });
 
     // Finally nagvigate to the home page
     navigate("/Home");
   }
+
+  const chgEmail = (event) => {
+    setEmail(event.currentTarget.value);
+  };
+
+  const chgPass = (event) => {
+    setPass(event.currentTarget.value);
+  };
+
+	useEffect(()=>{
+		loadBlockChainData();
+	})
 
   return (
     <Container
@@ -59,13 +78,18 @@ function Registration() {
             <Image src={logo} />
           </div>
           <Form
-            onSubmit={handleSubmit(this.email, this.password)}
+            onSubmit={handleSubmit}
             style={{ display: "inlineBlock" }}
             className="h-76 mt-2 pt-5 px-5"
           >
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control
+                onChange={chgEmail}
+                type="email"
+                placeholder="Enter email"
+                value={userEm}
+              />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
@@ -73,7 +97,12 @@ function Registration() {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                onChange={chgPass}
+                type="password"
+                placeholder="Password"
+                value={userPass}
+              />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
