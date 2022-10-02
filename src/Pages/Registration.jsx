@@ -1,6 +1,6 @@
 import shopimg from "../Images/Shopping_edited.jpg";
 import logo from "../Images/appLogo.svg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   Container,
@@ -19,28 +19,48 @@ import {
 import Web3 from "web3";
 
 function Registration() {
-  let navigate = useNavigate();
-	let [contract, setContract] = useState({}); // State for storing the smart contract that is used for this page
-	let [blcAcc, setAccount] = useState(""); // State for storing the account of the transaction owner in the blockchain
-  let [userEm, setEmail] = useState(""); // state for the storing the user account's email
-  let [userPass, setPass] = useState(""); // state for the storing the user account's password
+  const navigate = useNavigate();
+  const [contract, setContract] = useState({}); // State for storing the smart contract that is used for this page
+  const [blcAcc, setAccount] = useState(""); // State for storing the account of the transaction owner in the blockchain
+  const [userEm, setEmail] = useState(""); // state for the storing user account's email
+  const [userPass, setPass] = useState(""); // state for the storing user account's password
+  const [confPass, setCpass] = useState(""); // state for storing the confirmation password
+  const [isExist, setExist] = useState(false); // state to keep track of whether an email entered by the user already exists
+  const [isMatch, setMatch] = useState(true); // state to check if both confirmation password match the entered password
 
-	const loadBlockChainData = async()=>{
+  const loadBlockChainData = async () => {
     // Firstly load the web3 function to load the blockchain
     const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
     const accounts = await web3.eth.getAccounts();
     const accContract = new web3.eth.Contract(ACCOUNTS_ABI, ACCOUNTS_ADDRESS);
-		setContract(accContract);
-		setAccount(accounts[0]);
-	}
+    setContract(accContract);
+    setAccount(accounts[0]);
+  };
 
-  const handleSubmit = async (email, pass) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // First check if the email entered by the user already exists or not
+    // 1) get the count of how many user Accounts exist in the smart contract
+    console.log("before call");
+    const aCount = await contract.methods.acCount().call();
+    console.log("after call");
+
+    // 2) check through every record in the blockchain smart contract if the Email already exists
+    for (let i = 1; i <= aCount; i++) {
+      const tempAcc = await contract.methods.accounts(i).call();
+      if (tempAcc.email === userEm) {
+        setExist(true);
+        return;
+      }
+    }
+
     // register the accounts into the blockchain using the smart contract's methods
     contract.methods.createAccount(userEm, userPass).send({ from: blcAcc });
 
     // Finally nagvigate to the home page
     navigate("/Home");
-  }
+  };
 
   const chgEmail = (event) => {
     setEmail(event.currentTarget.value);
@@ -50,9 +70,9 @@ function Registration() {
     setPass(event.currentTarget.value);
   };
 
-	useEffect(()=>{
-		loadBlockChainData();
-	})
+  useEffect(() => {
+    loadBlockChainData();
+  });
 
   return (
     <Container
@@ -109,6 +129,14 @@ function Registration() {
               <Form.Label>Confirm Password</Form.Label>
               <Form.Control type="password" placeholder="Re-enter Password" />
             </Form.Group>
+            <div>
+              If you already have an account, login <Link to="/">here</Link>
+            </div>
+            {isExist && (
+              <span style={{ color: "red" }}>
+                The email address you've entered is already in use
+              </span>
+            )}
             <Stack
               gap="2"
               className="pt-4 mt-5 w-100 float-end align-bottom hstack gap-2"
