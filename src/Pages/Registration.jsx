@@ -46,7 +46,13 @@ function Registration() {
     const aCount = await contract.methods.acCount().call();
     console.log("after call");
 
-    // 2) check through every record in the blockchain smart contract if the Email already exists
+    // 2) Check if the password entered matches the confirmation password
+    if (userPass !== confPass) {
+      setMatch(false);
+      return;
+    }
+
+    // 3) check through every record in the blockchain smart contract if the Email already exists
     for (let i = 1; i <= aCount; i++) {
       const tempAcc = await contract.methods.accounts(i).call();
       if (tempAcc.email === userEm) {
@@ -68,6 +74,10 @@ function Registration() {
 
   const chgPass = (event) => {
     setPass(event.currentTarget.value);
+  };
+
+  const chgConpass = (event) => {
+    setCpass(event.currentTarget.value);
   };
 
   useEffect(() => {
@@ -127,7 +137,12 @@ function Registration() {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Confirm Password</Form.Label>
-              <Form.Control type="password" placeholder="Re-enter Password" />
+              <Form.Control
+                onChange={chgConpass}
+                type="password"
+                placeholder="Re-enter Password"
+                value={confPass}
+              />
             </Form.Group>
             <div>
               If you already have an account, login <Link to="/">here</Link>
@@ -135,6 +150,12 @@ function Registration() {
             {isExist && (
               <span style={{ color: "red" }}>
                 The email address you've entered is already in use
+              </span>
+            )}
+
+            {!isMatch && (
+              <span style={{ color: "red" }}>
+                The passwords you've entered do not match
               </span>
             )}
             <Stack
