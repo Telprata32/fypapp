@@ -49,15 +49,17 @@ function Registration() {
     // 2) Check if the password entered matches the confirmation password
     if (userPass !== confPass) {
       setMatch(false);
+      setExist(false);
       return;
-    }
-
-    // 3) check through every record in the blockchain smart contract if the Email already exists
-    for (let i = 1; i <= aCount; i++) {
-      const tempAcc = await contract.methods.accounts(i).call();
-      if (tempAcc.email === userEm) {
-        setExist(true);
-        return;
+    } else {
+      // 3) check through every record in the blockchain smart contract if the Email already exists
+      for (let i = 1; i <= aCount; i++) {
+        const tempAcc = await contract.methods.accounts(i).call();
+        if (tempAcc.email === userEm) {
+          setExist(true);
+          setMatch(true);
+          return;
+        }
       }
     }
 
