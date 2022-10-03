@@ -21,7 +21,7 @@ import Web3 from "web3";
 function Registration() {
   const navigate = useNavigate();
   const [contract, setContract] = useState({}); // State for storing the smart contract that is used for this page
-  const [blcAcc, setAccount] = useState(""); // State for storing the account of the transaction owner in the blockchain
+  const [blcAcc, setAccount] = useState(""); // State for storing the account address of the blockchain account in the blockchain network
   const [userEm, setEmail] = useState(""); // state for the storing user account's email
   const [userPass, setPass] = useState(""); // state for the storing user account's password
   const [confPass, setCpass] = useState(""); // state for storing the confirmation password

@@ -1,6 +1,7 @@
 import shopimg from "../Images/Shopping_edited.jpg";
 import logo from "../Images/appLogo.svg";
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import {
   Container,
   Row,
@@ -11,13 +12,54 @@ import {
   Stack,
 } from "react-bootstrap";
 import "../App.css";
+import {
+  ACCOUNTS_ABI,
+  ACCOUNTS_ADDRESS,
+} from "../Contracts Configs/accounts_config.js";
+import Web3 from "web3";
 
 function Login() {
+  //States for use throughout this page
+  const [contract, setContract] = useState({}); //State for storing the blockchain smart contract
+  const [usMail, setMail] = useState(""); // State to store the email entered by the user
+  const [userPass, setPass] = useState(""); // state for the storing user account's password
+  const [isValid, setValid] = useState(true); // Boolean to check if the credentials entered by user are valid
   let navigate = useNavigate();
 
-  function handleSubmit() {
-    navigate("/Home");
-  }
+  const loadBlockChain = async () => {
+    // Firstly load the web3 function to load the blockchain
+    const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
+    const accounts = await web3.eth.getAccounts();
+    const accContract = new web3.eth.Contract(ACCOUNTS_ABI, ACCOUNTS_ADDRESS);
+    setContract(accContract);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    //Get the count of accounts available first
+    const aCount = await contract.methods.acCount().call();
+
+    for (let i = 1; i <= aCount; i++) {
+      const tmAcc = await contract.methods.accounts(i).call();
+      if (tmAcc.email === usMail && tmAcc.psWord === userPass) {
+        navigate("/Home");
+      }
+    }
+    setValid(false);
+  };
+
+  const chgMail = (event) => {
+    setMail(event.currentTarget.value);
+  };
+
+  const chgPass = (event) => {
+    setPass(event.currentTarget.value);
+  };
+
+  useEffect(() => {
+    loadBlockChain();
+  });
 
   return (
     <Container
@@ -49,7 +91,12 @@ function Login() {
           >
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control
+                value={usMail}
+                onChange={chgMail}
+                type="email"
+                placeholder="Enter email"
+              />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
@@ -57,13 +104,24 @@ function Login() {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                value={userPass}
+                onChange={chgPass}
+                type="password"
+                placeholder="Password"
+              />
             </Form.Group>
 
             <div>
               If you don't have an account, click{" "}
               <Link to="/registration">here</Link>
             </div>
+            {!isValid && (
+              <span style={{ color: "red" }}>
+                {" "}
+                The email and password entered are incorrect ! Please try again
+              </span>
+            )}
             <Stack
               gap="2"
               className="pt-4 mt-3 w-100 float-end align-bottom hstack gap-2"
