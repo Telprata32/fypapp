@@ -3,6 +3,7 @@ import Login from "./Pages/Login";
 import Registration from "./Pages/Registration";
 import Home from "./Pages/Home";
 import THobbies from "./Pages/Toyhobbies";
+import Merchant from "./Pages/Mechstore";
 import Prodinfo from "./Pages/Prodinfo";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./Navbar";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/registration" element={<Registration />} />
         <Route path="/toyshobbies" element={<THobbies />} />
         <Route path="/prodinfo" element={<Prodinfo />} />
+        <Route path="/merchant" element={<Merchant />} />
       </Routes>
     </div>
   );

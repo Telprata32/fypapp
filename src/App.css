@@ -30,6 +30,13 @@
   border-radius: 50%;
 }
 
+.dropdown-toggle {
+  height: 70px;
+  width: 70px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+}
 /*==== CSS for carousel ====*/
 .carousel-inner {
   width: auto;
@@ -78,4 +85,29 @@
   background-color: #e9ecef;
   border-color: #afafaf;
   color: black;
+}
+
+/*====  CSS for the Account's Merchant Store page ====*/
+.merch .col,
+.col-lg-2 {
+  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* css for the side navigation bar */
+.merch .col-lg-2 div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  height: 53px;
+  border-bottom: 2px solid #d6d5d5;
+}
+
+.merch .col-lg-2 div:hover {
+  background-color: #e9ecef;
+}
+
+.merch .col-lg-2 div:active {
+  background-color: #faa660;
+  color: #e7e7e7;
 }
