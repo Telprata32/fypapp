@@ -94,8 +94,10 @@
 }
 
 /* css for the side navigation bar */
-.merch .col-lg-2 div {
+.merch .col-lg-2 .unselected {
+  text-decoration: none;
   display: flex;
+  color: #9c9c9c;
   justify-content: center;
   align-items: center;
   font-size: 26px;
@@ -103,11 +105,11 @@
   border-bottom: 2px solid #d6d5d5;
 }
 
-.merch .col-lg-2 div:hover {
+.merch .col-lg-2 .unselected:hover {
   background-color: #e9ecef;
 }
 
-.merch .col-lg-2 div:active {
+.merch .col-lg-2 .active {
   background-color: #faa660;
-  color: #e7e7e7;
+  color: #f3f3f3;
 }

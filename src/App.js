@@ -4,6 +4,8 @@ import Registration from "./Pages/Registration";
 import Home from "./Pages/Home";
 import THobbies from "./Pages/Toyhobbies";
 import Merchant from "./Pages/Mechstore";
+import Store from "./Pages/Merchstore Pages/Store";
+import Products from "./Pages/Merchstore Pages/Products";
 import Prodinfo from "./Pages/Prodinfo";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./Navbar";
@@ -23,7 +25,10 @@ function App() {
         <Route path="/registration" element={<Registration />} />
         <Route path="/toyshobbies" element={<THobbies />} />
         <Route path="/prodinfo" element={<Prodinfo />} />
-        <Route path="/merchant" element={<Merchant />} />
+        <Route path="/merchant" element={<Merchant />}>
+          <Route path="store" element={<Store />} />
+          <Route path="products" element={<Products />} />
+        </Route>
       </Routes>
     </div>
   );
