@@ -5,6 +5,7 @@ import NavLink from "react-bootstrap/NavLink";
 import profpic from "./Images/istockphoto-1270067126-612x612.jpg";
 import logo from "./Images/appLogo.svg";
 import cart from "./Images/shopping-cart.svg";
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
 
 function NavBar() {
   const Navigate = useNavigate();
@@ -14,7 +15,12 @@ function NavBar() {
       className="px-4 py-2 fixed-top mb-5"
       style={{ backgroundColor: "#FFEFDD" }}
     >
-      <Navbar.Brand className="py-0 me-auto logo">
+      <Navbar.Brand
+        onClick={() => {
+          Navigate("/home");
+        }}
+        className="py-0 me-auto logo"
+      >
         <img src={logo} />
       </Navbar.Brand>
 
@@ -39,6 +45,13 @@ function NavBar() {
             }}
           >
             Merchant Store
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
+              Navigate("/");
+            }}
+          >
+            Logout
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>

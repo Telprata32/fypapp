@@ -10,7 +10,6 @@ import Prodinfo from "./Pages/Prodinfo";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./Navbar";
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
 
 function App() {
   const location = useLocation();
@@ -25,7 +24,7 @@ function App() {
         <Route path="/registration" element={<Registration />} />
         <Route path="/toyshobbies" element={<THobbies />} />
         <Route path="/prodinfo" element={<Prodinfo />} />
-        <Route path="/merchant" element={<Merchant />}>
+        <Route path="/merchant/" element={<Merchant />}>
           <Route path="store" element={<Store />} />
           <Route path="products" element={<Products />} />
         </Route>

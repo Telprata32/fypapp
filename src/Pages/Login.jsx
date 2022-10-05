@@ -29,7 +29,6 @@ function Login() {
   const loadBlockChain = async () => {
     // Firstly load the web3 function to load the blockchain
     const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
-    const accounts = await web3.eth.getAccounts();
     const accContract = new web3.eth.Contract(ACCOUNTS_ABI, ACCOUNTS_ADDRESS);
     setContract(accContract);
   };

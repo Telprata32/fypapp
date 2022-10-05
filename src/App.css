@@ -13,6 +13,7 @@
 }
 
 .navbar-brand {
+  cursor: pointer;
   display: flex;
   align-items: center;
   height: 70px;
@@ -88,7 +89,7 @@
 }
 
 /*====  CSS for the Account's Merchant Store page ====*/
-.merch .col,
+.merch .outerbox,
 .col-lg-2 {
   box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.25);
 }
@@ -112,4 +113,21 @@
 .merch .col-lg-2 .active {
   background-color: #faa660;
   color: #f3f3f3;
+}
+
+/*  For the buttons */
+.merch .normButt {
+  width: 100px;
+  height: 40px;
+  background-color: #fd9843;
+  border-color: #fd9843;
+}
+
+.merch .selectButt {
+  width: 100px;
+  line-height: 12px;
+  font-size: 30px;
+  height: 40px;
+  background-color: #fd9843;
+  border-color: #fd9843;
 }

@@ -1,10 +1,10 @@
 import "../App.css";
-import { Container, Row, Col } from "react-bootstrap";
-import { NavLink, Outlet } from "react-router-dom";
-import Store from "./Merchstore Pages/Store.jsx";
-import Products from "./Merchstore Pages/Products.jsx";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 
 function Merchstore() {
+  const location = useLocation();
+
   return (
     <Container
       className="merch"
@@ -29,9 +29,17 @@ function Merchstore() {
             Products
           </NavLink>
         </Col>
-        <Col className="ms-5">
+
+        <Col className="ms-5 outerbox">
           <Outlet />
         </Col>
+      </Row>
+      <Row className="d-grid justify-content-md-end">
+        {location.pathname === "/merchant" ? (
+          <Button className="mt-4 normButt">Save</Button>
+        ) : (
+          <Button className="mt-4 selectButt">+</Button>
+        )}
       </Row>
     </Container>
   );
