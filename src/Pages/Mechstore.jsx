@@ -35,7 +35,7 @@ function Merchstore() {
         </Col>
       </Row>
       <Row className="d-grid justify-content-md-end">
-        {location.pathname === "/merchant" ? (
+        {location.pathname === "/merchant/store" ? (
           <Button className="mt-4 normButt">Save</Button>
         ) : (
           <Button className="mt-4 selectButt">+</Button>

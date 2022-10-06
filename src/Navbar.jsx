@@ -5,10 +5,14 @@ import NavLink from "react-bootstrap/NavLink";
 import profpic from "./Images/istockphoto-1270067126-612x612.jpg";
 import logo from "./Images/appLogo.svg";
 import cart from "./Images/shopping-cart.svg";
-import DropdownItem from "react-bootstrap/esm/DropdownItem";
+import { useCookies } from "react-cookie";
 
 function NavBar() {
+  // Function to navigate to any page
   const Navigate = useNavigate();
+
+  // Function to save cookies to be used across
+  const [cookies, setCookie, removeCookie] = useCookies(["Email"]);
 
   return (
     <Navbar
@@ -48,6 +52,7 @@ function NavBar() {
           </Dropdown.Item>
           <Dropdown.Item
             onClick={() => {
+              removeCookie("Email");
               Navigate("/");
             }}
           >

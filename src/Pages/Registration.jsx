@@ -2,6 +2,7 @@ import shopimg from "../Images/Shopping_edited.jpg";
 import logo from "../Images/appLogo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import {
   Container,
   Row,
@@ -27,6 +28,13 @@ function Registration() {
   const [confPass, setCpass] = useState(""); // state for storing the confirmation password
   const [isExist, setExist] = useState(false); // state to keep track of whether an email entered by the user already exists
   const [isMatch, setMatch] = useState(true); // state to check if both confirmation password match the entered password
+
+  // Function to save cookies to be used across
+  const [cookies, setCookie] = useCookies(["Email"]);
+
+  function chgSession(newMail) {
+    setCookie("Email", newMail, { path: "/" });
+  }
 
   const loadBlockChainData = async () => {
     // Firstly load the web3 function to load the blockchain
@@ -65,6 +73,9 @@ function Registration() {
 
     // register the accounts into the blockchain using the smart contract's methods
     contract.methods.createAccount(userEm, userPass).send({ from: blcAcc });
+
+    // Save the email as a cookie to the local storage
+    chgSession(userEm);
 
     // Finally nagvigate to the home page
     navigate("/Home");

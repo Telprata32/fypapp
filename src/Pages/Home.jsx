@@ -10,6 +10,7 @@ import babyprod from "../Images/babyprod.jpg";
 import toys from "../Images/toys.jpg";
 import idImg from "../Images/home.jpeg";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import {
   Navbar,
   Row,
@@ -23,6 +24,7 @@ import {
 import "../App.css";
 
 function Home() {
+  // function to navigate to pages on command
   let navigate = useNavigate();
 
   return (

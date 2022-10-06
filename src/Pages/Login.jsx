@@ -17,6 +17,7 @@ import {
   ACCOUNTS_ADDRESS,
 } from "../Contracts Configs/accounts_config.js";
 import Web3 from "web3";
+import { useCookies } from "react-cookie";
 
 function Login() {
   //States for use throughout this page
@@ -24,8 +25,18 @@ function Login() {
   const [usMail, setMail] = useState(""); // State to store the email entered by the user
   const [userPass, setPass] = useState(""); // state for the storing user account's password
   const [isValid, setValid] = useState(true); // Boolean to check if the credentials entered by user are valid
+
+  // function to navigate to pages on command
   let navigate = useNavigate();
 
+  // Function to save cookies to be used across
+  const [cookies, setCookie] = useCookies(["Email"]);
+
+  function chgSession(newMail) {
+    setCookie("Email", newMail, { path: "/" });
+  }
+
+  // Load the block chain before using it
   const loadBlockChain = async () => {
     // Firstly load the web3 function to load the blockchain
     const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
@@ -42,6 +53,7 @@ function Login() {
     for (let i = 1; i <= aCount; i++) {
       const tmAcc = await contract.methods.accounts(i).call();
       if (tmAcc.email === usMail && tmAcc.psWord === userPass) {
+        chgSession(usMail);
         navigate("/Home");
       }
     }
