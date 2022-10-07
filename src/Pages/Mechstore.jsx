@@ -2,6 +2,16 @@ import "../App.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 
+function Choosebttn(props) {
+  if (props.name === "/merchant") {
+    return;
+  } else if (props.name === "/merchant/store") {
+    return <Button className="mt-4 normButt">Save</Button>;
+  } else {
+    return <Button className="mt-4 selectButt">+</Button>;
+  }
+}
+
 function Merchstore() {
   const location = useLocation();
 
@@ -13,7 +23,7 @@ function Merchstore() {
       <Row className="h-100">
         {/*  For this side navbar that will implement different css when one is active follow this: 
         https://stackoverflow.com/questions/60244592/how-do-you-set-an-active-class-in-react-and-css */}
-        <Col className="me-5 px-0 text-center" lg={2}>
+        <Col className="me-5 px-0 text-center sidebar" lg={2}>
           <NavLink
             to="/merchant/store"
             activeClassName="selected"
@@ -35,11 +45,7 @@ function Merchstore() {
         </Col>
       </Row>
       <Row className="d-grid justify-content-md-end">
-        {location.pathname === "/merchant/store" ? (
-          <Button className="mt-4 normButt">Save</Button>
-        ) : (
-          <Button className="mt-4 selectButt">+</Button>
-        )}
+        <Choosebttn name={location.pathname} />
       </Row>
     </Container>
   );

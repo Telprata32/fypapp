@@ -90,12 +90,12 @@
 
 /*====  CSS for the Account's Merchant Store page ====*/
 .merch .outerbox,
-.col-lg-2 {
+.sidebar {
   box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.25);
 }
 
 /* css for the side navigation bar */
-.merch .col-lg-2 .unselected {
+.merch .sidebar .unselected {
   text-decoration: none;
   display: flex;
   color: #9c9c9c;
@@ -106,11 +106,11 @@
   border-bottom: 2px solid #d6d5d5;
 }
 
-.merch .col-lg-2 .unselected:hover {
+.merch .sidebar .unselected:hover {
   background-color: #e9ecef;
 }
 
-.merch .col-lg-2 .active {
+.merch .sidebar .active {
   background-color: #faa660;
   color: #f3f3f3;
 }
@@ -128,6 +128,22 @@
   line-height: 12px;
   font-size: 30px;
   height: 40px;
+  background-color: #fd9843;
+  border-color: #fd9843;
+}
+
+/* CSS for the merchant store pic */
+.merch .storepage img {
+  height: 120px;
+  width: 140px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.merch .storepage button {
+  width: 120px;
+  font-size: 14.5px;
   background-color: #fd9843;
   border-color: #fd9843;
 }
