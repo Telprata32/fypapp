@@ -45,7 +45,7 @@ function NavBar() {
           <Dropdown.Item>Profile</Dropdown.Item>
           <Dropdown.Item
             onClick={() => {
-              Navigate("/merchant");
+              Navigate("/merchant/store");
             }}
           >
             Merchant Store

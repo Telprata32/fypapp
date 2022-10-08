@@ -1,19 +1,31 @@
 import "../App.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-
-function Choosebttn(props) {
-  if (props.name === "/merchant") {
-    return;
-  } else if (props.name === "/merchant/store") {
-    return <Button className="mt-4 normButt">Save</Button>;
-  } else {
-    return <Button className="mt-4 selectButt">+</Button>;
-  }
-}
+import { useState } from "react";
 
 function Merchstore() {
+  //Declare states
+  const [storeIsPressed, storePressed] = useState(false); //state to keep track if the button at the bottom is pressed
+
   const location = useLocation();
+
+  const setStorePressed = () => {
+    storePressed(true);
+  };
+
+  function Choosebttn(props) {
+    if (props.name === "/merchant") {
+      return;
+    } else if (props.name === "/merchant/store") {
+      return (
+        <Button onClick={setStorePressed} className="mt-4 normButt">
+          Save
+        </Button>
+      );
+    } else {
+      return <Button className="mt-4 selectButt">+</Button>;
+    }
+  }
 
   return (
     <Container
@@ -41,7 +53,7 @@ function Merchstore() {
         </Col>
 
         <Col className="ms-5 outerbox">
-          <Outlet />
+          <Outlet context={[storeIsPressed, storePressed]} />
         </Col>
       </Row>
       <Row className="d-grid justify-content-md-end">

@@ -4034,12 +4034,12 @@
       "links": {
         "StringLib": "0x56E57d242077154Baf2cAba09aE50240a52866b5"
       },
-      "address": "0x3BBE62B555DEaeD6a1D52f5924c02bFE1d8CA760",
-      "transactionHash": "0x16c4ede6793a6bea27504124c6eec8e07420c21abb6817f2e249558076eddc82"
+      "address": "0xf6Bb3f796eC173d15BC9e21A57aedCCE65467e0B",
+      "transactionHash": "0x02d0d259c1e9fdc0ad30bd93b184c56c07df9d19ca66361567cf20bd841888a8"
     }
   },
   "schemaVersion": "3.0.1",
-  "updatedAt": "2022-10-08T05:41:58.969Z",
+  "updatedAt": "2022-10-08T10:48:47.123Z",
   "devdoc": {
     "methods": {}
   },
