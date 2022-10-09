@@ -21,7 +21,6 @@ function Store() {
   const [blcAcc, setAccount] = useState(""); // State for storing the account address of the blockchain account in the blockchain network
   const [storename, setName] = useState(""); //State for storing the user entered store name
   const [location, setLocation] = useState(""); //State for storing the user entered location of the store
-  const [thisStore, setStore] = useState({}); // Store this current account's Store details
   const [thisAccount, setThisAccount] = useState({}); //Store current account's details
   const [merchId, setmId] = useState(0); // Stores the id of the current account store detail in the blockchain
   const [accId, setId] = useState(0); // Stores the id of the current account in the blockchain
@@ -42,11 +41,12 @@ function Store() {
 
     // 1) get the count of how many user Accounts and Merchant stores exist in the smart contract
     const aCount = await accContract.methods.acCount().call();
-    const mCount = await merchContract.methods.storecount().call();
 
+    // declare the tempAcc variable before hand to be used here in this function
+    let tempAcc = {};
     // Load the account's account details here and store them into the states
     for (let i = 1; i <= aCount; i++) {
-      const tempAcc = await accContract.methods.accounts(i).call();
+      tempAcc = await accContract.methods.accounts(i).call();
       if (tempAcc.email === cookies.Email) {
         setThisAccount(tempAcc);
         setId(i);
@@ -54,20 +54,21 @@ function Store() {
       }
     }
 
+    // declare the tempStore variable before hand to be used here in this function
+    let tempStore = {};
     // Load the account's merchant store details here and store them into the states
     for (let i = 1; i <= aCount; i++) {
-      const tempStore = await merchContract.methods.Stores(i).call();
+      tempStore = await merchContract.methods.Stores(i).call();
       if (tempStore.account === cookies.Email) {
-        setStore(tempStore);
         setmId(i);
         break;
       }
     }
 
     //Fetch the details of this current account's store if the account has a merchant store
-    if (thisAccount.isMerchant) {
-      setName(thisStore.name);
-      setLocation(thisStore.location);
+    if (tempAcc.isMerchant) {
+      setName(tempStore.name);
+      setLocation(tempStore.location);
     }
   };
 
@@ -107,7 +108,10 @@ function Store() {
   // useEffect function loads the blockchain onto the website
   useEffect(() => {
     loadBlockChain();
+  }, []);
 
+  // Another useEffect to detect change in state due to button press
+  useEffect(() => {
     if (storeIsPressed) {
       handlesubmit();
     }
