@@ -3,12 +3,15 @@ pragma solidity >=0.4.22 <0.9.0;
 import "./StringLib.sol";
 
 contract Merchant {
+    uint256 public storecount = 0;
+
     struct store {
         string name;
         string location;
+        string account;
     }
 
-    mapping(string => store) internal Stores;
+    mapping(uint256 => store) public Stores;
 
     uint256 public prodCount = 0;
 
@@ -22,13 +25,29 @@ contract Merchant {
 
     mapping(uint256 => product) public products;
 
-    function setStore(
+    function createStore(
         string memory email,
         string memory storeName,
         string memory location
     ) public {
-        Stores[email].name = storeName;
-        Stores[email].location = location;
+        Stores[++storecount] = store(storeName, location, email);
+    }
+
+    //  Function to just edit the details of an existing store
+    function editStore(
+        string memory email,
+        string memory storeName,
+        string memory location
+    ) public {
+        uint256 tempid = 0;
+        for (uint256 i = 1; i <= storecount; i++) {
+            if (StringLib.compareTwoStrings(email, Stores[i].account)) {
+                tempid = i;
+                break;
+            }
+        }
+        store memory _tempstore = Stores[tempid];
+        Stores[tempid] = store(storeName, location, _tempstore.account);
     }
 
     function addProduct(

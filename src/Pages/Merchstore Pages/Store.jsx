@@ -5,13 +5,18 @@ import {
   MERCHANT_ABI,
   MERCHANT_ADDRESS,
 } from "../../Contracts Configs/merchant_config.js";
+import {
+  ACCOUNTS_ABI,
+  ACCOUNTS_ADDRESS,
+} from "../../Contracts Configs/accounts_config.js";
 import storepic from "../../Images/hobby-shop-interior.jpg";
 import { useCookies } from "react-cookie";
 import { useOutletContext } from "react-router-dom";
 
 function Store() {
   //Declare states
-  const [mcontract, setContract] = useState({}); //State for storing the blockchain smart contract
+  const [mcontract, setContract] = useState({}); //State for storing the Merchant related blockchain smart contract
+  const [acontract, setAccCont] = useState({}); //State for storing the Accoutns related blockchain smart contract
   const [cookies, setCookie] = useCookies(["Email"]); // State to save cookies to be used across pages
   const [blcAcc, setAccount] = useState(""); // State for storing the account address of the blockchain account in the blockchain network
   const [storename, setName] = useState(""); //State for storing the user entered store name
@@ -27,7 +32,11 @@ function Store() {
     const accounts = await web3.eth.getAccounts();
     const merchContract = new web3.eth.Contract(MERCHANT_ABI, MERCHANT_ADDRESS); //create an instance of the Merchant smart contract
     setContract(merchContract);
+    const accContract = new web3.eth.Contract(ACCOUNTS_ABI, ACCOUNTS_ADDRESS); // Create an instance of the Account smart contract
+    setAccCont(accContract);
     setAccount(accounts[0]);
+
+    // Load the account's store details here and store them into the states
   };
 
   // Detect changes in the form and update the respective states
@@ -40,11 +49,38 @@ function Store() {
   };
 
   // function to handle the form submit event
-  const handlesubmit = () => {
-    // update the account's store details in the blockchain with the new details
-    mcontract.methods
-      .setStore(cookies.Email, storename, location)
-      .send({ from: blcAcc });
+  const handlesubmit = async () => {
+    // Check if the current account logged in has a merchant store or not (check if isMerchant is true)
+    // Declare a temporary variable to hold the isMerchant status of the account within this function
+    let isMerchant = false;
+
+    // 1) get the count of how many user Accounts exist in the smart contract
+    const aCount = await acontract.methods.acCount().call();
+
+    // 2) check through every record in the blockchain smart contract to find the account and retrieve isMerchant status
+    for (let i = 1; i <= aCount; i++) {
+      const tempAcc = await acontract.methods.accounts(i).call();
+      if (tempAcc.email === cookies.Email) {
+        isMerchant = tempAcc.isMerchant;
+        break;
+      }
+    }
+
+    // Now if the isMerchant is false then create a new store record in the blockchain, if not just update it
+    if (isMerchant) {
+      // create a new store record in the blockchain for the account
+      mcontract.methods
+        .createStore(cookies.Email, storename, location)
+        .send({ from: blcAcc });
+
+      // Set the isMerchant status to true for the account that submitted the form
+      acontract.methods.setMerchant(cookies.Email).send({ from: blcAcc });
+    } else {
+      //Update the current account's store details
+      mcontract.methods
+        .editStore(cookies.Email, storename, location)
+        .send({ from: blcAcc });
+    }
 
     // after everything is done, reset the storeIsPressed state to false
     storePressed(false);
@@ -57,7 +93,7 @@ function Store() {
     if (storeIsPressed) {
       handlesubmit();
     }
-  });
+  }, [storeIsPressed]);
 
   return (
     <Row className="mt-4 ms-3 storepage">

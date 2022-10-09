@@ -2880,12 +2880,12 @@
       "links": {
         "StringLib": "0x56E57d242077154Baf2cAba09aE50240a52866b5"
       },
-      "address": "0xaC034F7a4aF9569D47cD56492aB01d1BaF6F014c",
-      "transactionHash": "0x60bb75f5987f6f538b7b2cee46e315f35d86c56d6d20b09f00f5ded7208220b6"
+      "address": "0x58c87238e8f9De8678F20B0c87cC6733FA4f2e30",
+      "transactionHash": "0xd77ecd092b085e5332672a452eb95bd60e89d7d369a7580fc34bf046d6eef07a"
     }
   },
   "schemaVersion": "3.0.1",
-  "updatedAt": "2022-10-08T10:48:47.115Z",
+  "updatedAt": "2022-10-09T05:18:42.871Z",
   "devdoc": {
     "methods": {}
   },

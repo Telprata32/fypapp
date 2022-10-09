@@ -31,9 +31,16 @@ contract Accounts {
         }
     }
 
-    function setMerchant(uint256 num) public {
-        Account memory tempAccount = accounts[num];
+    function setMerchant(string memory email) public {
+        uint256 tempid = 0;
+        for (uint256 i = 1; i <= acCount; i++) {
+            if (StringLib.compareTwoStrings(email, accounts[i].email)) {
+                tempid = i;
+                break;
+            }
+        }
+        Account memory tempAccount = accounts[tempid];
         tempAccount.isMerchant = true;
-        accounts[num] = tempAccount;
+        accounts[tempid] = tempAccount;
     }
 }

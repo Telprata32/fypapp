@@ -50,9 +50,7 @@ function Registration() {
 
     // First check if the email entered by the user already exists or not
     // 1) get the count of how many user Accounts exist in the smart contract
-    console.log("before call");
     const aCount = await contract.methods.acCount().call();
-    console.log("after call");
 
     // 2) Check if the password entered matches the confirmation password
     if (userPass !== confPass) {
