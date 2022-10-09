@@ -39,12 +39,12 @@ function Store() {
     setAccount(accounts[0]);
 
     // 1) get the count of how many user Accounts and Merchant stores exist in the smart contract
-    const aCount = await acontract.methods.acCount().call();
-    const mCount = await mcontract.methods.storecount().call();
+    const aCount = await accContract.methods.acCount().call();
+    const mCount = await merchContract.methods.storecount().call();
 
     // Load the account's account details here and store them into the states
     for (let i = 1; i <= aCount; i++) {
-      const tempAcc = await acontract.methods.accounts(i).call();
+      const tempAcc = await accContract.methods.accounts(i).call();
       if (tempAcc.email === cookies.Email) {
         setThisAccount(tempAcc);
         break;
@@ -53,7 +53,7 @@ function Store() {
 
     // Load the account's merchant store details here and store them into the states
     for (let i = 1; i <= aCount; i++) {
-      const tempStore = await mcontract.methods.Stores(i).call();
+      const tempStore = await merchContract.methods.Stores(i).call();
       if (tempStore.account === cookies.Email) {
         setStore(tempStore);
         break;
