@@ -23,6 +23,8 @@ function Store() {
   const [location, setLocation] = useState(""); //State for storing the user entered location of the store
   const [thisStore, setStore] = useState({}); // Store this current account's Store details
   const [thisAccount, setThisAccount] = useState({}); //Store current account's details
+  const [merchId, setmId] = useState(0); // Stores the id of the current account store detail in the blockchain
+  const [accId, setId] = useState(0); // Stores the id of the current account in the blockchain
 
   // States inheritted from parent element via useOutletContext
   const [storeIsPressed, storePressed] = useOutletContext(); //state to keep track if the button at the bottom is pressed
@@ -47,6 +49,7 @@ function Store() {
       const tempAcc = await accContract.methods.accounts(i).call();
       if (tempAcc.email === cookies.Email) {
         setThisAccount(tempAcc);
+        setId(i);
         break;
       }
     }
@@ -56,6 +59,7 @@ function Store() {
       const tempStore = await merchContract.methods.Stores(i).call();
       if (tempStore.account === cookies.Email) {
         setStore(tempStore);
+        setmId(i);
         break;
       }
     }
@@ -88,11 +92,11 @@ function Store() {
         .send({ from: blcAcc });
 
       // Set the isMerchant status to true for the account that submitted the form
-      acontract.methods.setMerchant(cookies.Email).send({ from: blcAcc });
+      acontract.methods.setMerchant(accId).send({ from: blcAcc });
     } else {
       //Update the current account's store details
       mcontract.methods
-        .editStore(cookies.Email, storename, location)
+        .editStore(merchId, storename, location)
         .send({ from: blcAcc });
     }
 
