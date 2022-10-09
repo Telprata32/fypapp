@@ -81,7 +81,7 @@ function Store() {
     // Check if the current account logged in has a merchant store or not (check if isMerchant is true)
 
     // If the isMerchant is false then create a new store record in the blockchain, if not just update it
-    if (thisAccount.isMerchant) {
+    if (!thisAccount.isMerchant) {
       // create a new store record in the blockchain for the account
       mcontract.methods
         .createStore(cookies.Email, storename, location)
