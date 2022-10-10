@@ -2,7 +2,7 @@ import * as React from "react";
 import Login from "./Pages/Login";
 import Registration from "./Pages/Registration";
 import Home from "./Pages/Home";
-import THobbies from "./Pages/Toyhobbies";
+import Buyprods from "./Pages/Buyprods";
 import Merchant from "./Pages/Mechstore";
 import Store from "./Pages/Merchstore Pages/Store";
 import Addproduct from "./Pages/Addproduct";
@@ -23,7 +23,7 @@ function App() {
         <Route path="/Home" element={<Home />} />
         <Route path="/" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
-        <Route path="/toyshobbies" element={<THobbies />} />
+        <Route path="/buyprods" element={<Buyprods />} />
         <Route path="/prodinfo" element={<Prodinfo />} />
         <Route path="/merchant/" element={<Merchant />}>
           <Route path="store" element={<Store />} />

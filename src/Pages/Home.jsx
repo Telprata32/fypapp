@@ -24,6 +24,9 @@ import {
 import "../App.css";
 
 function Home() {
+  // Use a cookie to record what category was clicked on to decide what category of products will be shown on the Buyprods page
+  const [cookie, setCookie] = useCookies(["Category"]);
+
   // function to navigate to pages on command
   let navigate = useNavigate();
 
@@ -62,7 +65,10 @@ function Home() {
         <Col>
           <Card
             style={{ width: "18rem", cursor: "pointer" }}
-            onClick={() => navigate("/toyshobbies")}
+            onClick={() => {
+              setCookie("Category", "Toys and Hobbies", { path: "/" });
+              navigate("/buyprods");
+            }}
           >
             <Card.Img variant="top" src={toys} />
             <Card.Body>
@@ -71,7 +77,13 @@ function Home() {
           </Card>
         </Col>
         <Col>
-          <Card style={{ width: "18rem", cursor: "pointer" }}>
+          <Card
+            style={{ width: "18rem", cursor: "pointer" }}
+            onClick={() => {
+              setCookie("Category", "Fashion", { path: "/" });
+              navigate("/buyprods");
+            }}
+          >
             <Card.Img variant="top" src={fashion} />
             <Card.Body>
               <Card.Title>👗 Fashion</Card.Title>
@@ -79,7 +91,13 @@ function Home() {
           </Card>
         </Col>
         <Col>
-          <Card style={{ width: "18rem", cursor: "pointer" }}>
+          <Card
+            style={{ width: "18rem", cursor: "pointer" }}
+            onClick={() => {
+              setCookie("Category", "Home Appliances", { path: "/" });
+              navigate("/buyprods");
+            }}
+          >
             <Card.Img variant="top" src={idImg} />
             <Card.Body>
               <Card.Title>🛋️ Home Appliances</Card.Title>
@@ -87,7 +105,13 @@ function Home() {
           </Card>
         </Col>
         <Col>
-          <Card style={{ width: "18rem", cursor: "pointer" }}>
+          <Card
+            style={{ width: "18rem", cursor: "pointer" }}
+            onClick={() => {
+              setCookie("Category", "Electronics", { path: "/" });
+              navigate("/buyprods");
+            }}
+          >
             <Card.Img variant="top" src={phone} />
             <Card.Body>
               <Card.Title>📱 Electronics</Card.Title>
@@ -98,7 +122,13 @@ function Home() {
 
       <Row style={{ marginTop: "70px", paddingInline: "115px" }}>
         <Col>
-          <Card style={{ width: "18rem", cursor: "pointer" }}>
+          <Card
+            style={{ width: "18rem", cursor: "pointer" }}
+            onClick={() => {
+              setCookie("Category", "Fitness", { path: "/" });
+              navigate("/buyprods");
+            }}
+          >
             <Card.Img
               variant="top"
               src={futsal}
@@ -110,7 +140,13 @@ function Home() {
           </Card>
         </Col>
         <Col>
-          <Card style={{ width: "18rem", cursor: "pointer" }}>
+          <Card
+            style={{ width: "18rem", cursor: "pointer" }}
+            onClick={() => {
+              setCookie("Category", "Maternity", { path: "/" });
+              navigate("/buyprods");
+            }}
+          >
             <Card.Img variant="top" src={babyprod} />
             <Card.Body>
               <Card.Title>🍼 Maternity</Card.Title>
