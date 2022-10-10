@@ -1,6 +1,50 @@
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import Web3 from "web3";
+import { useCookies } from "react-cookie";
+import {
+  MERCHANT_ABI,
+  MERCHANT_ADDRESS,
+} from "../Contracts Configs/merchant_config.js";
+import { useEffect, useState } from "react";
 
 function Addproduct() {
+  // Load cookies to get the Storename of the current account
+  const [cookie] = useCookies(["Storename"]);
+
+  // Declare states
+  const [mcontract, setContract] = useState({}); //State for storing the Merchant related blockchain smart contract
+  const [blcAcc, setAccount] = useState(""); // State for storing the account address of the blockchain account in the blockchain network
+  // States for storing changes in the form inputs/contrals
+  const [pname, setName] = useState(""); // Product name
+  const [category, setCat] = useState(""); // Product Category
+  const [price, setPrice] = useState(0); // Product price
+  const [stock, setStock] = useState(0); // Product stock
+  const [description, setDesc] = useState(""); // Product description
+
+  // Load the block chain before using it
+  const loadBlockChain = async () => {
+    // Firstly load the web3 function to load the blockchain
+    const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
+    const accounts = await web3.eth.getAccounts();
+    const merchContract = new web3.eth.Contract(MERCHANT_ABI, MERCHANT_ADDRESS); //create an instance of the Merchant smart contract
+    setContract(merchContract);
+    setAccount(accounts[0]);
+  };
+
+  // Function to submit the form inputs to the blockchain
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    mcontract.methods
+      .Addproduct(pname, category, price, stock, description, cookie.Storename)
+      .sent({ from: blcAcc });
+  };
+
+  useEffect(() => {
+    //Upon rendering page, load the blockchain
+    loadBlockChain();
+  });
+
   return (
     <Container
       className="addprod"
@@ -25,7 +69,13 @@ function Addproduct() {
                   <Form.Label>Product Name</Form.Label>
                 </Col>
                 <Col>
-                  <Form.Control type="text" />
+                  <Form.Control
+                    onChange={(event) => {
+                      setName(event.currentTarget.value);
+                    }}
+                    value={pname}
+                    type="text"
+                  />
                 </Col>
               </Row>
               <Row className="mt-3">
@@ -33,7 +83,13 @@ function Addproduct() {
                   <Form.Label>Category</Form.Label>
                 </Col>
                 <Col>
-                  <Form.Control type="list" />
+                  <Form.Control
+                    onChange={(event) => {
+                      setCat(event.currentTarget.value);
+                    }}
+                    value={category}
+                    type="list"
+                  />
                 </Col>
               </Row>
               <Row className="mt-3">
@@ -41,7 +97,13 @@ function Addproduct() {
                   <Form.Label>Price</Form.Label>
                 </Col>
                 <Col>
-                  <Form.Control type="number" />
+                  <Form.Control
+                    onChange={(event) => {
+                      setPrice(event.currentTarget.value);
+                    }}
+                    value={price}
+                    type="number"
+                  />
                 </Col>
               </Row>
               <Row className="mt-3">
@@ -49,15 +111,13 @@ function Addproduct() {
                   <Form.Label>Initial Stock</Form.Label>
                 </Col>
                 <Col>
-                  <Form.Control type="number" />
-                </Col>
-              </Row>
-              <Row className="mt-3">
-                <Col lg={4}>
-                  <Form.Label>Store Name</Form.Label>
-                </Col>
-                <Col>
-                  <Form.Control type="text" />
+                  <Form.Control
+                    onChange={(event) => {
+                      setStock(event.currentTarget.value);
+                    }}
+                    value={stock}
+                    type="number"
+                  />
                 </Col>
               </Row>
               <Row className="mt-3">
@@ -65,7 +125,15 @@ function Addproduct() {
                   <Form.Label>Description</Form.Label>
                 </Col>
                 <Col>
-                  <Form.Control as="textarea" rows="4" type="text" />
+                  <Form.Control
+                    onChange={(event) => {
+                      setDesc(event.currentTarget.value);
+                    }}
+                    value={description}
+                    as="textarea"
+                    rows="6"
+                    type="text"
+                  />
                 </Col>
               </Row>
             </Form>
@@ -74,7 +142,7 @@ function Addproduct() {
       </Container>
       <Row className="mt-4 d-grid justify-content-md-end">
         <Col>
-          <Button>Save</Button>
+          <Button onClick={handleSubmit}>Save</Button>
         </Col>
       </Row>
     </Container>

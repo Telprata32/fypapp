@@ -14,10 +14,12 @@ import { useCookies } from "react-cookie";
 import { useOutletContext } from "react-router-dom";
 
 function Store() {
+  // Handle the cookies
+  const [cookies, setCookie] = useCookies(["Email", "Storename"]); // State to save cookies to be used across pages
+
   //Declare states
   const [mcontract, setContract] = useState({}); //State for storing the Merchant related blockchain smart contract
   const [acontract, setAccCont] = useState({}); //State for storing the Accoutns related blockchain smart contract
-  const [cookies, setCookie] = useCookies(["Email"]); // State to save cookies to be used across pages
   const [blcAcc, setAccount] = useState(""); // State for storing the account address of the blockchain account in the blockchain network
   const [storename, setName] = useState(""); //State for storing the user entered store name
   const [location, setLocation] = useState(""); //State for storing the user entered location of the store
@@ -70,6 +72,9 @@ function Store() {
       setName(tempStore.name);
       setLocation(tempStore.location);
     }
+
+    //Then save the current account's storename to cookie to be used for reference in the Addproduct page
+    setCookie("Storename", tempStore.name, { path: "/" });
   };
 
   // Detect changes in the form and update the respective states
