@@ -1,4 +1,4 @@
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Container, Card, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import {
@@ -51,9 +51,32 @@ function Products() {
   });
 
   return (
-    <Row>
-      <Col>This is for the products</Col>
-    </Row>
+    <Container style={{ height: "452px" }} className="prods overflow-scroll">
+      <Row>
+        {prodArr.map((item) => {
+          return (
+            <Col className="mt-4" lg={3}>
+              <Card style={{ width: "12rem" }}>
+                <Card.Img variant="top" src="holder.js/100px180" />
+                <Card.Body>
+                  <Card.Title className="text-capitalize">
+                    {item.prodName}
+                  </Card.Title>
+                  <Card.Subtitle style={{ color: "#fd9843" }}>
+                    RM {item.price}
+                  </Card.Subtitle>
+                  <Card.Text style={{ color: "#a6a4a4" }}>
+                    {item.stock} in stock
+                  </Card.Text>
+                  <Button>Edit</Button>
+                  <Button className="float-end">restock</Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          );
+        })}
+      </Row>
+    </Container>
   );
 }
 
