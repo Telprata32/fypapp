@@ -16,7 +16,7 @@ function Addproduct() {
   const [blcAcc, setAccount] = useState(""); // State for storing the account address of the blockchain account in the blockchain network
   // States for storing changes in the form inputs/contrals
   const [pname, setName] = useState(""); // Product name
-  const [category, setCat] = useState(""); // Product Category
+  const [category, setCat] = useState("Toys and Hobbies"); // Product Category
   const [price, setPrice] = useState(0); // Product price
   const [stock, setStock] = useState(0); // Product stock
   const [description, setDesc] = useState(""); // Product description
@@ -36,8 +36,8 @@ function Addproduct() {
     event.preventDefault();
 
     mcontract.methods
-      .Addproduct(pname, category, price, stock, description, cookie.Storename)
-      .sent({ from: blcAcc });
+      .addProduct(pname, category, price, stock, description, cookie.Storename)
+      .send({ from: blcAcc });
   };
 
   useEffect(() => {
@@ -83,13 +83,19 @@ function Addproduct() {
                   <Form.Label>Category</Form.Label>
                 </Col>
                 <Col>
-                  <Form.Control
+                  <Form.Select
                     onChange={(event) => {
                       setCat(event.currentTarget.value);
                     }}
                     value={category}
-                    type="list"
-                  />
+                  >
+                    <option>Toys and Hobbies</option>
+                    <option>Fashion</option>
+                    <option>Home Appliances</option>
+                    <option>Electronics</option>
+                    <option>Fitness</option>
+                    <option>Maternity</option>
+                  </Form.Select>
                 </Col>
               </Row>
               <Row className="mt-3">

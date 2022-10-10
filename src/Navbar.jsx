@@ -12,7 +12,7 @@ function NavBar() {
   const Navigate = useNavigate();
 
   // Function to save cookies to be used across
-  const [cookies, setCookie, removeCookie] = useCookies(["Email"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["Email", "Storename"]);
 
   return (
     <Navbar
@@ -53,6 +53,7 @@ function NavBar() {
           <Dropdown.Item
             onClick={() => {
               removeCookie("Email");
+              removeCookie("Storename");
               Navigate("/");
             }}
           >

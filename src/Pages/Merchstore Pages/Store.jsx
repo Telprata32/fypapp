@@ -99,11 +99,17 @@ function Store() {
 
       // Set the isMerchant status to true for the account that submitted the form
       acontract.methods.setMerchant(accId).send({ from: blcAcc });
+
+      //update the Storename cookie
+      setCookie("Storename", storename, { path: "/" });
     } else {
       //Update the current account's store details
       mcontract.methods
         .editStore(merchId, storename, location)
         .send({ from: blcAcc });
+
+      //update the Storename cookie
+      setCookie("Storename", storename, { path: "/" });
     }
 
     // after everything is done, reset the storeIsPressed state to false
