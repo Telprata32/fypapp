@@ -1,6 +1,6 @@
 import "../App.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function Merchstore() {
@@ -8,6 +8,7 @@ function Merchstore() {
   const [storeIsPressed, storePressed] = useState(false); //state to keep track if the button at the bottom is pressed
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const setStorePressed = () => {
     storePressed(true);
@@ -23,7 +24,16 @@ function Merchstore() {
         </Button>
       );
     } else {
-      return <Button className="mt-4 selectButt">+</Button>;
+      return (
+        <Button
+          onClick={() => {
+            navigate("/addproducts");
+          }}
+          className="mt-4 selectButt"
+        >
+          +
+        </Button>
+      );
     }
   }
 

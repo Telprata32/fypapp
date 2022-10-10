@@ -16,6 +16,7 @@ contract Merchant {
 
     struct product {
         string prodName;
+        string category;
         uint256 price;
         uint256 stock;
         string desc;
@@ -43,14 +44,16 @@ contract Merchant {
     }
 
     function addProduct(
-        string memory storeName,
         string memory name,
+        string memory prodCat,
         uint256 price,
         uint256 initStock,
-        string memory description
+        string memory description,
+        string memory storeName
     ) public {
         products[++prodCount] = product(
             name,
+            prodCat,
             price,
             initStock,
             description,
@@ -64,6 +67,7 @@ contract Merchant {
         }
 
         products[id].prodName = "";
+        products[id].category = "";
         products[id].price = 0;
         products[id].stock = 0;
         products[id].desc = "";

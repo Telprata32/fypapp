@@ -146,7 +146,7 @@ function Login() {
                 variant="primary"
                 onClick={handleSubmit}
                 type="submit"
-                style={{ backgroundColor: "#FEB272" }}
+                style={{ backgroundColor: "#FEB272", borderColor: "#FEB272" }}
               >
                 Login
               </Button>

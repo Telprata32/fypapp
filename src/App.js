@@ -5,6 +5,7 @@ import Home from "./Pages/Home";
 import THobbies from "./Pages/Toyhobbies";
 import Merchant from "./Pages/Mechstore";
 import Store from "./Pages/Merchstore Pages/Store";
+import Addproduct from "./Pages/Addproduct";
 import Products from "./Pages/Merchstore Pages/Products";
 import Prodinfo from "./Pages/Prodinfo";
 import { Routes, Route } from "react-router-dom";
@@ -28,6 +29,7 @@ function App() {
           <Route path="store" element={<Store />} />
           <Route path="products" element={<Products />} />
         </Route>
+        <Route path="/addproducts" element={<Addproduct />} />
       </Routes>
     </div>
   );

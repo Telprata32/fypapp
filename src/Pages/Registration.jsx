@@ -181,7 +181,7 @@ function Registration() {
                 className="ms-auto btn-color-orange"
                 variant="primary"
                 type="submit"
-                style={{ backgroundColor: "#FEB272" }}
+                style={{ backgroundColor: "#FEB272", borderColor: "#FEB272" }}
               >
                 Register
               </Button>
