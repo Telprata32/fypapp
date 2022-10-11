@@ -38,6 +38,10 @@ function Addproduct() {
     mcontract.methods
       .addProduct(pname, category, price, stock, description, cookie.Storename)
       .send({ from: blcAcc });
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 5000);
   };
 
   useEffect(() => {
