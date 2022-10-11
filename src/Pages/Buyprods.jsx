@@ -14,7 +14,8 @@ function Thobbies() {
   let navigate = useNavigate(); // Navigate to any page
 
   // Get relevant cookies
-  const [cookie, setCookie] = useCookies(["Category"]);
+  const [cookie, setCookie] = useCookies(["Category", "Prodselect"]); // Category is defined in the previous page when a specific category was selected which is used here as reference
+  // The Prodselect cookie is used here to store the state of which product that was clicked on to be used in the "prodinfo" page by saving the name of the product
 
   // Declare states here to be used
   const [mcontract, setMerchContract] = useState({}); // Store instance of the Merchant smart contract
@@ -61,7 +62,13 @@ function Thobbies() {
         {prodArray.map((item) => {
           return (
             <Col className="mt-4" lg={3}>
-              <Card style={{ width: "16rem" }}>
+              <Card
+                style={{ width: "16rem" }}
+                onClick={() => {
+                  setCookie("Prodselect", item.prodName, { path: "/" });
+                  navigate("/prodinfo");
+                }}
+              >
                 <Card.Img variant="top" src="holder.js/100px180" />
                 <Card.Body>
                   <Card.Title className="text-capitalize">
