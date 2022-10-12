@@ -51,11 +51,11 @@ function Cart() {
 
   useEffect(() => {
     loadBlockChain();
-  });
+  }, []);
 
   useEffect(() => {
     getPurchases();
-  }, []);
+  }, [acontract]);
 
   return (
     <Container className="cart">
