@@ -4821,12 +4821,12 @@
       "links": {
         "StringLib": "0x56E57d242077154Baf2cAba09aE50240a52866b5"
       },
-      "address": "0xdC4995A526546339a0700dADb7b219211Ba97CfF",
-      "transactionHash": "0x3e1c6bd39caf6ab34aea9048f19373f42cbb0371a80b17fc2476a718abf33cea"
+      "address": "0xB1934Ac29714D9EF557f36E27aae8De52A51aDFB",
+      "transactionHash": "0x9f214c0842f345824c0c0e9a2108f2b1f0f99ec465821d7f88ac7cff87c85f30"
     }
   },
   "schemaVersion": "3.0.1",
-  "updatedAt": "2022-10-12T08:29:49.834Z",
+  "updatedAt": "2022-10-12T15:12:14.442Z",
   "devdoc": {
     "methods": {}
   },

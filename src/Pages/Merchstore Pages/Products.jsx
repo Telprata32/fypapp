@@ -14,16 +14,13 @@ function Products() {
   // Declare states
   const [prodArr, setArr] = useState([]); // Array to hold all the products being sold by current account's store
   const [mcontract, setContract] = useState({}); //State for storing the Merchant related blockchain smart contract
-  const [blcAcc, setAccount] = useState(""); // State for storing the account address of the blockchain account in the blockchain network
 
   // Function to load the blockchain
   const loadBlockChain = async () => {
     // Firstly load the web3 function to load the blockchain
     const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
-    const accounts = await web3.eth.getAccounts();
     const merchContract = new web3.eth.Contract(MERCHANT_ABI, MERCHANT_ADDRESS); //create an instance of the Merchant smart contract
     setContract(merchContract);
-    setAccount(accounts[0]);
   };
 
   // Function to load the list of products for respective account/store

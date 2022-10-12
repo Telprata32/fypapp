@@ -173,10 +173,10 @@
 }
 
 /*==== CSS for the Cart page ====*/
-.cart {
+.cart,
+.cart-body {
   height: 452px;
   width: 1114px;
-  box-shadow: 0px 1px 4px 2px rgba(0, 0, 0, 0.25);
 }
 
 .cart-header {
@@ -185,7 +185,11 @@
   box-shadow: 0px -0.5px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.cart .row {
+.cart-body {
+  box-shadow: 0px 1px 4px 2px rgba(0, 0, 0, 0.25);
+}
+
+.cart-body .row {
   border-bottom: solid #c5c5c567 1.4px;
   display: flex;
   justify-content: center;
@@ -202,4 +206,10 @@
   padding-top: 0px;
   padding-bottom: 0px;
   padding-left: 90px;
+}
+
+.cart button {
+  background-color: #fd9843;
+  border-color: #fd9843;
+  width: 100px;
 }
