@@ -11,20 +11,31 @@ import {
   MERCHANT_ABI,
   MERCHANT_ADDRESS,
 } from "../Contracts Configs/merchant_config.js";
+import {
+  ACCOUNTS_ABI,
+  ACCOUNTS_ADDRESS,
+} from "../Contracts Configs/accounts_config.js";
 
 function Prodinfo() {
   // Declare the cookies necessary to use for this page
-  const [cookie] = useCookies(["Prodselect"]); // Holds the product name of the selected product as reference here
+  const [cookie] = useCookies(["Prodselect", "Email"]); // "Prodselect": Holds the product name of the selected product as reference here
   // Declare states here to be used
   const [mcontract, setMerchContract] = useState({}); // Store instance of the Merchant smart contract
+  const [acontract, setaContract] = useState({}); // Store instance of the Accounts smart contract
   const [product, setProduct] = useState({}); // Store the info of the product in this state
+  const [quantity, setQuant] = useState(0); // Stores the quantity of the product being purchased by the customer
+  const [blcAcc, setAccount] = useState(""); // State for storing the account address of the blockchain account in the blockchain network
 
   // load the blockchain first
   const loadBlockChain = async () => {
     // Firstly load the web3 function to load the blockchain
     const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
+    const accounts = await web3.eth.getAccounts();
     const merchContract = new web3.eth.Contract(MERCHANT_ABI, MERCHANT_ADDRESS);
     setMerchContract(merchContract);
+    const accContract = new web3.eth.Contract(ACCOUNTS_ABI, ACCOUNTS_ADDRESS);
+    setaContract(accContract);
+    setAccount(accounts[0]);
   };
 
   // Get the respective product's info from the blockchain
@@ -40,6 +51,14 @@ function Prodinfo() {
         break;
       }
     }
+  };
+
+  // Purchase product and add it to the account's cart
+  const buyProduct = async () => {
+    //save the purchase of the product to the blockchain
+    acontract.methods
+      .buyProduct(product.prodName, product.price, quantity, cookie.Email)
+      .send({ from: blcAcc });
   };
 
   useEffect(() => {
@@ -71,6 +90,9 @@ function Prodinfo() {
             </Col>
             <Col lg="3">
               <InputSpinner
+                onChange={(event) => {
+                  setQuant(event.currentTarget.value);
+                }}
                 type={"int"}
                 precision={0}
                 max={product.stock}
@@ -89,6 +111,7 @@ function Prodinfo() {
           <Row style={{ marginTop: "90px" }}>
             <Col>
               <Button
+                onClick={buyProduct}
                 style={{
                   width: "213px",
                   backgroundColor: "#FD9843",
