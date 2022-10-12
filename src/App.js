@@ -5,6 +5,7 @@ import Home from "./Pages/Home";
 import Buyprods from "./Pages/Buyprods";
 import Merchant from "./Pages/Mechstore";
 import Store from "./Pages/Merchstore Pages/Store";
+import Cart from "./Pages/Cart";
 import Addproduct from "./Pages/Addproduct";
 import Products from "./Pages/Merchstore Pages/Products";
 import Prodinfo from "./Pages/Prodinfo";
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/buyprods" element={<Buyprods />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/prodinfo" element={<Prodinfo />} />
         <Route path="/merchant/" element={<Merchant />}>
           <Route path="store" element={<Store />} />

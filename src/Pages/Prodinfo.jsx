@@ -91,7 +91,7 @@ function Prodinfo() {
             <Col lg="3">
               <InputSpinner
                 onChange={(event) => {
-                  setQuant(event.currentTarget.value);
+                  setQuant(event);
                 }}
                 type={"int"}
                 precision={0}

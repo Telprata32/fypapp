@@ -32,7 +32,10 @@ function NavBar() {
         <Image
           className="my-auto"
           src={cart}
-          style={{ width: "80%", height: "80%" }}
+          style={{ width: "80%", height: "80%", cursor: "pointer" }}
+          onClick={() => {
+            Navigate("/cart");
+          }}
         />
       </Nav>
       {/* <Nav style={{ backgroundImage: `url(${profpic})` }}></Nav> */}
