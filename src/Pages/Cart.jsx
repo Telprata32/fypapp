@@ -33,6 +33,8 @@ function Cart() {
     let indArr = [];
     // Declare temporary array for storing the purchases to be listed
     let prodArr = [];
+    // Declare a temporary variable to store the added total of the items
+    let tempTotal = 0;
 
     // Iterate though all the purchases to see which belongs to the account and which has not yet been paid
     for (let i = 1; i <= count; i++) {
@@ -40,13 +42,14 @@ function Cart() {
       if (tempPurch.email === cookie.Email && !tempPurch.isPaid) {
         indArr.push(i);
         prodArr.push(tempPurch);
-        setTotal(total + parseInt(tempPurch.total));
+        tempTotal = tempTotal + parseInt(tempPurch.total);
       }
     }
 
     //Finally store the arrays to the states
     setArr(prodArr);
     setInds(indArr);
+    setTotal(tempTotal);
   };
 
   useEffect(() => {
