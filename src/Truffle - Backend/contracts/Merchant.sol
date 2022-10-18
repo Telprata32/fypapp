@@ -18,6 +18,7 @@ contract Merchant {
         string prodName;
         string category;
         uint256 price;
+        uint256 prFloat; // This holds the decimal points for the price of the product
         uint256 stock;
         string desc;
         string storeName;
@@ -47,6 +48,7 @@ contract Merchant {
         string memory name,
         string memory prodCat,
         uint256 price,
+        uint256 float,
         uint256 initStock,
         string memory description,
         string memory storeName
@@ -55,6 +57,7 @@ contract Merchant {
             name,
             prodCat,
             price,
+            float,
             initStock,
             description,
             storeName
@@ -69,6 +72,7 @@ contract Merchant {
         products[id].prodName = "";
         products[id].category = "";
         products[id].price = 0;
+        products[id].prFloat = 0;
         products[id].stock = 0;
         products[id].desc = "";
         products[id].storeName = "";

@@ -35,8 +35,18 @@ function Addproduct() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const prArray = price.split("."); //This array is used to whole both the whole number and the floating number of the price
+
     mcontract.methods
-      .addProduct(pname, category, price, stock, description, cookie.Storename)
+      .addProduct(
+        pname,
+        category,
+        prArray[0],
+        prArray[1],
+        stock,
+        description,
+        cookie.Storename
+      )
       .send({ from: blcAcc });
 
     setTimeout(() => {
@@ -112,6 +122,7 @@ function Addproduct() {
                       setPrice(event.currentTarget.value);
                     }}
                     value={price}
+                    step="0.10"
                     type="number"
                   />
                 </Col>

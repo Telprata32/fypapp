@@ -75,7 +75,7 @@ function Thobbies() {
                     {item.prodName}
                   </Card.Title>
                   <Card.Subtitle style={{ color: "#fd9843" }}>
-                    RM {item.price}
+                    RM {item.price}.{item.prFloat}
                   </Card.Subtitle>
                   <Card.Text className="text-muted">{item.storeName}</Card.Text>
                 </Card.Body>

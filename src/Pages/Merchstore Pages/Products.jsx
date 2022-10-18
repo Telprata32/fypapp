@@ -60,7 +60,7 @@ function Products() {
                     {item.prodName}
                   </Card.Title>
                   <Card.Subtitle style={{ color: "#fd9843" }}>
-                    RM {item.price}
+                    RM {item.price}.{item.prFloat}
                   </Card.Subtitle>
                   <Card.Text style={{ color: "#a6a4a4" }}>
                     {item.stock} in stock

@@ -81,7 +81,9 @@ function Prodinfo() {
         </Col>
         <Col className="ms-5">
           <h1 className="text-capitalize">{product.prodName}</h1>
-          <h1 style={{ color: "#FD9843" }}>RM {product.price}</h1>
+          <h1 style={{ color: "#FD9843" }}>
+            RM {product.price}.{product.prFloat}
+          </h1>
           <Row className="mt-3">
             <Col style={{ display: "flex", alignItems: "center" }} lg="2">
               <span style={{ fontSize: "19px" }} className="align-middle">
