@@ -6,6 +6,7 @@ import {
   MERCHANT_ADDRESS,
 } from "../Contracts Configs/merchant_config.js";
 import { useEffect, useState } from "react";
+import placeholder from "../Images/placeholder-image.png";
 
 function Addproduct() {
   // Load cookies to get the Storename of the current account
@@ -68,7 +69,14 @@ function Addproduct() {
         <Row>
           <Col lg={4}>
             <Row>
-              <img style={{ height: "145px", width: "165px" }} src />
+              <img
+                style={{
+                  height: "145px",
+                  width: "165px",
+                  border: "solid grey 1px",
+                }}
+                src={placeholder}
+              />
             </Row>
             <Row>
               <Button style={{ width: "165px", borderRadius: "0px" }}>

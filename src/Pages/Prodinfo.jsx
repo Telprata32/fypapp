@@ -4,6 +4,11 @@ import { Col, Row, Container, Button } from "react-bootstrap";
 import InputSpinner from "react-bootstrap-input-spinner";
 import stricon from "../Images/store-icon.svg";
 import profpic from "../Images/istockphoto-1270067126-612x612.jpg";
+import futsal from "../Images/futsal.png";
+import fashion from "../Images/fashion2015.jpg";
+import babyprod from "../Images/babyprod.jpg";
+import toys from "../Images/toys.jpg";
+import idImg from "../Images/home.jpeg";
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import Web3 from "web3";
@@ -15,6 +20,66 @@ import {
   ACCOUNTS_ABI,
   ACCOUNTS_ADDRESS,
 } from "../Contracts Configs/accounts_config.js";
+
+// Function to decide the picture based on the category of the product
+function ChooseImg(props) {
+  switch (props.category) {
+    case "Toys and Hobbies":
+      return (
+        <img
+          style={{ overflow: "hidden" }}
+          className="h-100 img-fluid mx-auto d-block"
+          src={toys}
+        />
+      );
+      break;
+    case "Fashion":
+      return (
+        <img
+          style={{ overflow: "hidden" }}
+          className="h-100 img-fluid mx-auto d-block"
+          src={fashion}
+        />
+      );
+      break;
+    case "Home Appliances":
+      return (
+        <img
+          style={{ overflow: "hidden" }}
+          className="h-100 img-fluid mx-auto d-block"
+          src={idImg}
+        />
+      );
+      break;
+    case "Electronics":
+      return (
+        <img
+          style={{ overflow: "hidden" }}
+          className="h-100 img-fluid mx-auto d-block"
+          src={phone}
+        />
+      );
+      break;
+    case "Fitness":
+      return (
+        <img
+          style={{ overflow: "hidden" }}
+          className="h-100 img-fluid mx-auto d-block"
+          src={futsal}
+        />
+      );
+      break;
+    case "Maternity":
+      return (
+        <img
+          style={{ overflow: "hidden" }}
+          className="h-100 img-fluid mx-auto d-block"
+          src={babyprod}
+        />
+      );
+      break;
+  }
+}
 
 function Prodinfo() {
   // Declare the cookies necessary to use for this page
@@ -73,11 +138,7 @@ function Prodinfo() {
     >
       <Row>
         <Col style={{ height: "371px" }}>
-          <img
-            style={{ overflow: "hidden" }}
-            className="h-100 img-fluid mx-auto d-block"
-            src={phone}
-          />
+          <ChooseImg category={product.category} />
         </Col>
         <Col className="ms-5">
           <h1 className="text-capitalize">{product.prodName}</h1>

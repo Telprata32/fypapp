@@ -6,6 +6,36 @@ import {
   ACCOUNTS_ABI,
   ACCOUNTS_ADDRESS,
 } from "../Contracts Configs/accounts_config.js";
+import futsal from "../Images/futsal.png";
+import fashion from "../Images/fashion2015.jpg";
+import babyprod from "../Images/babyprod.jpg";
+import toys from "../Images/toys.jpg";
+import idImg from "../Images/home.jpeg";
+import phone from "../Images/phone.jpeg";
+
+// Function to decide the picture based on the category of the product
+function ChooseImg(props) {
+  switch (props.category) {
+    case "Toys and Hobbies":
+      return <img style={{ height: "74px", width: "114px" }} src={toys} />;
+      break;
+    case "Fashion":
+      return <img style={{ height: "74px", width: "114px" }} src={fashion} />;
+      break;
+    case "Home Appliances":
+      return <img style={{ height: "74px", width: "114px" }} src={idImg} />;
+      break;
+    case "Electronics":
+      return <img style={{ height: "74px", width: "114px" }} src={phone} />;
+      break;
+    case "Fitness":
+      return <img style={{ height: "74px", width: "114px" }} src={futsal} />;
+      break;
+    case "Maternity":
+      return <img style={{ height: "74px", width: "114px" }} src={babyprod} />;
+      break;
+  }
+}
 
 function Cart() {
   // Get relevant cookies first
@@ -76,10 +106,12 @@ function Cart() {
           return (
             <Row>
               <Col>
-                <img style={{ height: "74px", width: "114px" }} />
+                <ChooseImg category={item.category} />
               </Col>
               <Col>{item.prodName}</Col>
-              <Col>{item.price}</Col>
+              <Col>
+                {item.price}.{item.prFloat}
+              </Col>
               <Col>{item.quantity} </Col>
               <Col>{item.total}</Col>
             </Row>

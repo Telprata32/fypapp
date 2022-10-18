@@ -1,6 +1,11 @@
 import { Row, Container, Card, Col, Button } from "react-bootstrap";
 import "../App.css";
-import iphone from "../Images/Iphone.jpg";
+import futsal from "../Images/futsal.png";
+import fashion from "../Images/fashion2015.jpg";
+import babyprod from "../Images/babyprod.jpg";
+import toys from "../Images/toys.jpg";
+import idImg from "../Images/home.jpeg";
+import phone from "../Images/phone.jpeg";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import Web3 from "web3";
@@ -9,6 +14,30 @@ import {
   MERCHANT_ABI,
   MERCHANT_ADDRESS,
 } from "../Contracts Configs/merchant_config.js";
+
+// Function to decide the picture based on the category of the product
+function ChooseImg(props) {
+  switch (props.category) {
+    case "Toys and Hobbies":
+      return <Card.Img variant="top" src={toys} />;
+      break;
+    case "Fashion":
+      return <Card.Img variant="top" src={fashion} />;
+      break;
+    case "Home Appliances":
+      return <Card.Img variant="top" src={idImg} />;
+      break;
+    case "Electronics":
+      return <Card.Img variant="top" src={phone} />;
+      break;
+    case "Fitness":
+      return <Card.Img variant="top" src={futsal} />;
+      break;
+    case "Maternity":
+      return <Card.Img variant="top" src={babyprod} />;
+      break;
+  }
+}
 
 function Thobbies() {
   let navigate = useNavigate(); // Navigate to any page
@@ -69,7 +98,7 @@ function Thobbies() {
                   navigate("/prodinfo");
                 }}
               >
-                <Card.Img variant="top" src="holder.js/100px180" />
+                <ChooseImg category={item.category} />
                 <Card.Body>
                   <Card.Title className="text-capitalize">
                     {item.prodName}
