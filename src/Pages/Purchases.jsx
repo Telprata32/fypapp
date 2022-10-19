@@ -13,7 +13,6 @@ import toys from "../Images/toys.jpg";
 import idImg from "../Images/home.jpeg";
 import phone from "../Images/phone.jpeg";
 
-// Function to decide the picture based on the category of the product
 function ChooseImg(props) {
   switch (props.category) {
     case "Toys and Hobbies":
@@ -37,7 +36,7 @@ function ChooseImg(props) {
   }
 }
 
-function Cart() {
+function Purchases() {
   // Get relevant cookies first
   const [cookie] = useCookies(["Email"]);
   // Declare states here
@@ -45,15 +44,12 @@ function Cart() {
   const [prodArr, setArr] = useState([]); // Array to hold all the products being sold by current account's store
   const [acontract, setContract] = useState({}); //State for storing the Merchant related blockchain smart contract
   const [total, setTotal] = useState(0); // Stores the total of the entire cart
-  const [blcAcc, setAccount] = useState(""); // State for storing the account address of the blockchain account in the blockchain network
 
   // Function to load the blockchain
   const loadBlockChain = async () => {
     // Firstly load the web3 function to load the blockchain
     const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
     const accContract = new web3.eth.Contract(ACCOUNTS_ABI, ACCOUNTS_ADDRESS); //create an instance of the Merchant smart contract
-    const accounts = await web3.eth.getAccounts();
-    setAccount(accounts[0]);
     setContract(accContract);
   };
 
@@ -72,7 +68,7 @@ function Cart() {
     // Iterate though all the purchases to see which belongs to the account and which has not yet been paid
     for (let i = 1; i <= count; i++) {
       const tempPurch = await acontract.methods.purchases(i).call();
-      if (tempPurch.email === cookie.Email && !tempPurch.isPaid) {
+      if (tempPurch.email === cookie.Email && tempPurch.isPaid) {
         // First push purchases and their indexes/id number into a temporary array
         indArr.push(i);
         prodArr.push(tempPurch);
@@ -92,16 +88,6 @@ function Cart() {
     setTotal(tempTotal.toFixed(2)); // Remember that because of this, the "total" state is a string,so to use it in calculation remember to parseFloat
   };
 
-  const finalisePurchases = async () => {
-    // Just execute the smart contract function to finalise the payment of the products in the cart
-    acontract.methods.finalisePurchases(indexes).send({ from: blcAcc });
-
-    // Then reload the page after 5 seconds
-    setTimeout(() => {
-      window.location.reload();
-    }, 7000);
-  };
-
   useEffect(() => {
     loadBlockChain();
   }, []);
@@ -119,6 +105,7 @@ function Cart() {
           <Col>Unit Price</Col>
           <Col>QTY</Col>
           <Col>Total</Col>
+          <Col></Col>
         </Row>
       </Container>
       <Container className="cart-body overflow-scroll">
@@ -136,21 +123,15 @@ function Cart() {
               <Col>
                 RM{item.total}.{item.totFloat}
               </Col>
+              <Col>
+                <Button>Review</Button>
+              </Col>
             </Row>
           );
         })}
       </Container>
-      <Row className="mt-4 me-4 float-end">
-        <Col lg={8}>
-          <Row>Total:</Row>
-          <Row>RM {total}</Row>
-        </Col>
-        <Col lg={1}>
-          <Button onClick={finalisePurchases}>Pay</Button>
-        </Col>
-      </Row>
     </Container>
   );
 }
 
-export default Cart;
+export default Purchases;

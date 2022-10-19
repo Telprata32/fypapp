@@ -9,6 +9,7 @@ import Cart from "./Pages/Cart";
 import Addproduct from "./Pages/Addproduct";
 import Products from "./Pages/Merchstore Pages/Products";
 import Prodinfo from "./Pages/Prodinfo";
+import Purchases from "./Pages/Purchases";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./Navbar";
 import { useLocation } from "react-router-dom";
@@ -32,6 +33,7 @@ function App() {
           <Route path="products" element={<Products />} />
         </Route>
         <Route path="/addproducts" element={<Addproduct />} />
+        <Route path="/purchases" element={<Purchases />} />
       </Routes>
     </div>
   );

@@ -45,7 +45,13 @@ function NavBar() {
           as={NavLink}
         ></Dropdown.Toggle>
         <Dropdown.Menu align="end">
-          <Dropdown.Item>Profile</Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
+              Navigate("/purchases");
+            }}
+          >
+            Purchase History
+          </Dropdown.Item>
           <Dropdown.Item
             onClick={() => {
               Navigate("/merchant/store");
