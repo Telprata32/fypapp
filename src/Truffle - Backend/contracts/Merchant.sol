@@ -77,4 +77,8 @@ contract Merchant {
         products[id].desc = "";
         products[id].storeName = "";
     }
+
+    function setStock(uint256 id, uint256 newStock) public {
+        products[id].stock = newStock;
+    }
 }

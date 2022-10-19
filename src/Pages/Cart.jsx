@@ -70,16 +70,23 @@ function Cart() {
     for (let i = 1; i <= count; i++) {
       const tempPurch = await acontract.methods.purchases(i).call();
       if (tempPurch.email === cookie.Email && !tempPurch.isPaid) {
+        // First push purchases and their indexes/id number into a temporary array
         indArr.push(i);
         prodArr.push(tempPurch);
-        tempTotal = tempTotal + parseInt(tempPurch.total);
+
+        // Calculate the total using after combining the whole number and the floating point number
+        const totString = tempPurch.total + "." + tempPurch.totFloat; // store the combined string of the whole number and the floating number
+        const total = parseFloat(totString); // convert the conbined string into a floating number
+
+        //Calculate the total price
+        tempTotal = tempTotal + total;
       }
     }
 
     //Finally store the arrays to the states
     setArr(prodArr);
     setInds(indArr);
-    setTotal(tempTotal);
+    setTotal(tempTotal.toFixed(2)); // Remember that because of this, the "total" state is a string,so to use it in calculation remember to parseFloat
   };
 
   useEffect(() => {
@@ -110,10 +117,12 @@ function Cart() {
               </Col>
               <Col>{item.prodName}</Col>
               <Col>
-                {item.price}.{item.prFloat}
+                RM{item.price}.{item.prFloat}
               </Col>
               <Col>{item.quantity} </Col>
-              <Col>{item.total}</Col>
+              <Col>
+                RM{item.total}.{item.totFloat}
+              </Col>
             </Row>
           );
         })}

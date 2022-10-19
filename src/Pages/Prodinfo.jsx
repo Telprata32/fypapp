@@ -88,6 +88,7 @@ function Prodinfo() {
   const [mcontract, setMerchContract] = useState({}); // Store instance of the Merchant smart contract
   const [acontract, setaContract] = useState({}); // Store instance of the Accounts smart contract
   const [product, setProduct] = useState({}); // Store the info of the product in this state
+  const [prodId, setId] = useState(0); // Store the id of the current product
   const [quantity, setQuant] = useState(0); // Stores the quantity of the product being purchased by the customer
   const [blcAcc, setAccount] = useState(""); // State for storing the account address of the blockchain account in the blockchain network
 
@@ -113,6 +114,7 @@ function Prodinfo() {
       const tempProd = await mcontract.methods.products(i).call();
       if (tempProd.prodName === cookie.Prodselect) {
         setProduct(tempProd); //Save the product to the state
+        setId(i); // The value i represents the product's id like in conventional databases
         break;
       }
     }
@@ -120,10 +122,34 @@ function Prodinfo() {
 
   // Purchase product and add it to the account's cart
   const buyProduct = async () => {
+    // Calculate the total using after combining the whole number and the floating point number
+    const priceString = product.price + "." + product.prFloat; // store the combined string of the whole number and the floating number
+    const price = parseFloat(priceString); // convert the conbined string into a floating number
+
+    //Calculate the total price
+    const total = price * quantity;
+
+    // Split the total into its whole number and float
+    const totSplit = total.toFixed(2).split(".");
+
     //save the purchase of the product to the blockchain
     acontract.methods
-      .buyProduct(product.prodName, product.price, quantity, cookie.Email)
+      .buyProduct(
+        product.prodName,
+        product.price,
+        product.prFloat,
+        totSplit[0],
+        totSplit[1],
+        quantity,
+        cookie.Email
+      )
       .send({ from: blcAcc });
+
+    // Deduct quantity from the product's stock
+    const newStock = product.stock - quantity;
+
+    // Call smart contract function to set new stock
+    mcontract.methods.setStock(prodId, newStock).send({ from: blcAcc });
   };
 
   useEffect(() => {

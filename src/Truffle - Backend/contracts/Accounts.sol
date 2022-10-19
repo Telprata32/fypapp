@@ -18,8 +18,10 @@ contract Accounts {
     struct Purchase {
         string prodName;
         uint256 price;
+        uint256 prFloat;
         uint256 quantity;
         uint256 total;
+        uint256 totFloat;
         string email;
         bool isPaid; // If true this product will be displayed in the purchase history, if not it will be in the cart
     }
@@ -29,14 +31,19 @@ contract Accounts {
     function buyProduct(
         string memory name,
         uint256 price,
+        uint256 prFloat,
+        uint256 total,
+        uint256 totFloat,
         uint256 quantity,
         string memory email
     ) public {
         purchases[++purchCount] = Purchase(
             name,
             price,
+            prFloat,
             quantity,
-            price * quantity,
+            total,
+            totFloat,
             email,
             false
         );
