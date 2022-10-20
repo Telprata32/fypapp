@@ -54,6 +54,8 @@ contract Merchant {
         string memory description,
         string memory storeName
     ) public {
+        string[] memory review;
+        review[0] = "";
         products[++prodCount] = product(
             name,
             prodCat,
@@ -62,7 +64,7 @@ contract Merchant {
             initStock,
             description,
             storeName,
-            new string[](0)
+            review
         );
     }
 
