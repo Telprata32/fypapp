@@ -16,6 +16,7 @@ contract Accounts {
     uint256 public purchCount = 0;
 
     struct Purchase {
+        uint256 prodId;
         string prodName;
         uint256 price;
         uint256 prFloat;
@@ -29,6 +30,7 @@ contract Accounts {
     mapping(uint256 => Purchase) public purchases;
 
     function buyProduct(
+        uint256 id,
         string memory name,
         uint256 price,
         uint256 prFloat,
@@ -38,6 +40,7 @@ contract Accounts {
         string memory email
     ) public {
         purchases[++purchCount] = Purchase(
+            id,
             name,
             price,
             prFloat,

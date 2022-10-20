@@ -135,6 +135,7 @@ function Prodinfo() {
     //save the purchase of the product to the blockchain
     acontract.methods
       .buyProduct(
+        prodId,
         product.prodName,
         product.price,
         product.prFloat,

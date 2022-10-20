@@ -1,6 +1,6 @@
-import { Row, Col, Container, Button } from "react-bootstrap";
+import { Row, Col, Container, Button, Modal, Form } from "react-bootstrap";
 import { useCookies } from "react-cookie";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Web3 from "web3";
 import {
   ACCOUNTS_ABI,
@@ -8,10 +8,15 @@ import {
 } from "../Contracts Configs/accounts_config.js";
 import futsal from "../Images/futsal.png";
 import fashion from "../Images/fashion2015.jpg";
+import {
+  MERCHANT_ABI,
+  MERCHANT_ADDRESS,
+} from "../Contracts Configs/merchant_config.js";
 import babyprod from "../Images/babyprod.jpg";
 import toys from "../Images/toys.jpg";
 import idImg from "../Images/home.jpeg";
 import phone from "../Images/phone.jpeg";
+import { execPath } from "process";
 
 function ChooseImg(props) {
   switch (props.category) {
@@ -40,17 +45,72 @@ function Purchases() {
   // Get relevant cookies first
   const [cookie] = useCookies(["Email"]);
   // Declare states here
-  const [indexes, setInds] = useState([]); // Array of indexes stored here for reference when finalising all items in cart
   const [prodArr, setArr] = useState([]); // Array to hold all the products being sold by current account's store
+  const [mcontract, setMerchContract] = useState({}); // Store instance of the Merchant smart contract
   const [acontract, setContract] = useState({}); //State for storing the Merchant related blockchain smart contract
-  const [total, setTotal] = useState(0); // Stores the total of the entire cart
+  const [modalShow, setModalShow] = useState(false); // Stores the state of the modal being shown or not, state will trigger modal on or off
+  const [blcAcc, setAccount] = useState(""); // State for storing the account address of the blockchain account in the blockchain network
+  const revRef = useRef(""); // Use Reference to point to this input field as the review that will be submitted to the addReview function
+
+  //Prepared a modal render function: modal is to allow user to enter their review upon clicking the review button
+  function MyVerticallyCenteredModal(props) {
+    return (
+      <Modal
+        {...props}
+        backdrop="static"
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        {console.log(props.prodid)}
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Add a Review
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group>
+              <Form.Control
+                as="textarea"
+                rows="10"
+                type="text"
+                placeholder="Type in review"
+                ref={revRef}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={props.onHide}
+            style={{ backgroundColor: "red", borderColor: "red" }}
+          >
+            Close
+          </Button>
+          <Button
+            style={{ backgroundColor: "#fd9843", borderColor: "#fd9843" }}
+            onClick={() => {
+              addReview(props.prodid, revRef.current.value);
+            }}
+          >
+            Save
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
 
   // Function to load the blockchain
   const loadBlockChain = async () => {
     // Firstly load the web3 function to load the blockchain
     const web3 = new Web3(Web3.givenProvider || "http://127.0.0.1:7545");
+    const accounts = await web3.eth.getAccounts();
     const accContract = new web3.eth.Contract(ACCOUNTS_ABI, ACCOUNTS_ADDRESS); //create an instance of the Merchant smart contract
     setContract(accContract);
+    const merchContract = new web3.eth.Contract(MERCHANT_ABI, MERCHANT_ADDRESS);
+    setMerchContract(merchContract);
+    setAccount(accounts[0]);
   };
 
   // Function to get the purchases for respective account
@@ -58,34 +118,25 @@ function Purchases() {
     // First get the count of purchases
     const count = await acontract.methods.purchCount().call();
 
-    //Declare temporary array for storing into "indexes" array state
-    let indArr = [];
     // Declare temporary array for storing the purchases to be listed
     let prodArr = [];
-    // Declare a temporary variable to store the added total of the items
-    let tempTotal = 0;
 
     // Iterate though all the purchases to see which belongs to the account and which has not yet been paid
     for (let i = 1; i <= count; i++) {
       const tempPurch = await acontract.methods.purchases(i).call();
       if (tempPurch.email === cookie.Email && tempPurch.isPaid) {
         // First push purchases and their indexes/id number into a temporary array
-        indArr.push(i);
         prodArr.push(tempPurch);
-
-        // Calculate the total using after combining the whole number and the floating point number
-        const totString = tempPurch.total + "." + tempPurch.totFloat; // store the combined string of the whole number and the floating number
-        const total = parseFloat(totString); // convert the conbined string into a floating number
-
-        //Calculate the total price
-        tempTotal = tempTotal + total;
       }
     }
 
     //Finally store the arrays to the states
     setArr(prodArr);
-    setInds(indArr);
-    setTotal(tempTotal.toFixed(2)); // Remember that because of this, the "total" state is a string,so to use it in calculation remember to parseFloat
+  };
+
+  // Function to add review to purchased product
+  const addReview = async (prodId, Review) => {
+    mcontract.methods.addReview(prodId, Review).send({ from: blcAcc });
   };
 
   useEffect(() => {
@@ -124,8 +175,13 @@ function Purchases() {
                 RM{item.total}.{item.totFloat}
               </Col>
               <Col>
-                <Button>Review</Button>
+                <Button onClick={() => setModalShow(true)}>Review</Button>
               </Col>
+              <MyVerticallyCenteredModal
+                prodid={item.prodId}
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+              />
             </Row>
           );
         })}

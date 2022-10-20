@@ -22,6 +22,7 @@ contract Merchant {
         uint256 stock;
         string desc;
         string storeName;
+        string[] review;
     }
 
     mapping(uint256 => product) public products;
@@ -60,7 +61,8 @@ contract Merchant {
             float,
             initStock,
             description,
-            storeName
+            storeName,
+            new string[](0)
         );
     }
 
@@ -76,9 +78,14 @@ contract Merchant {
         products[id].stock = 0;
         products[id].desc = "";
         products[id].storeName = "";
+        delete products[id].review;
     }
 
     function setStock(uint256 id, uint256 newStock) public {
         products[id].stock = newStock;
+    }
+
+    function addReview(uint256 id, string memory review) public {
+        products[id].review.push(review);
     }
 }
