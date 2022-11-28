@@ -99,7 +99,7 @@ function Cart() {
     // Then reload the page after 5 seconds
     setTimeout(() => {
       window.location.reload();
-    }, 7000);
+    }, 15000);
   };
 
   useEffect(() => {

@@ -92,6 +92,7 @@ function Purchases() {
             style={{ backgroundColor: "#fd9843", borderColor: "#fd9843" }}
             onClick={() => {
               addReview(props.prodid, revRef.current.value);
+              props.onHide();
             }}
           >
             Save
@@ -136,7 +137,9 @@ function Purchases() {
 
   // Function to add review to purchased product
   const addReview = async (prodId, Review) => {
-    mcontract.methods.addReview(prodId, Review).send({ from: blcAcc });
+    mcontract.methods
+      .addReview(prodId, Review, cookie.Email)
+      .send({ from: blcAcc });
   };
 
   useEffect(() => {

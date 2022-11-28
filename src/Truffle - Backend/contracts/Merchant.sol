@@ -22,7 +22,6 @@ contract Merchant {
         uint256 stock;
         string desc;
         string storeName;
-        string[] review;
     }
 
     mapping(uint256 => product) public products;
@@ -54,8 +53,6 @@ contract Merchant {
         string memory description,
         string memory storeName
     ) public {
-        string[] memory review;
-        review[0] = "";
         products[++prodCount] = product(
             name,
             prodCat,
@@ -63,8 +60,7 @@ contract Merchant {
             float,
             initStock,
             description,
-            storeName,
-            review
+            storeName
         );
     }
 
@@ -80,14 +76,28 @@ contract Merchant {
         products[id].stock = 0;
         products[id].desc = "";
         products[id].storeName = "";
-        delete products[id].review;
     }
 
     function setStock(uint256 id, uint256 newStock) public {
         products[id].stock = newStock;
     }
 
-    function addReview(uint256 id, string memory review) public {
-        products[id].review.push(review);
+    // Handle reviews
+    uint256 public reviewCount = 0;
+
+    struct Review {
+        uint256 prodId;
+        string text;
+        string reviewee;
+    }
+
+    mapping(uint256 => Review) public reviews;
+
+    function addReview(
+        uint256 id,
+        string memory text,
+        string memory email
+    ) public {
+        reviews[++reviewCount] = Review(id, text, email);
     }
 }

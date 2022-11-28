@@ -91,6 +91,7 @@ function Prodinfo() {
   const [prodId, setId] = useState(0); // Store the id of the current product
   const [quantity, setQuant] = useState(0); // Stores the quantity of the product being purchased by the customer
   const [blcAcc, setAccount] = useState(""); // State for storing the account address of the blockchain account in the blockchain network
+  const [review, setReview] = useState([]); // State for storing product's reviews
 
   // load the blockchain first
   const loadBlockChain = async () => {
@@ -153,10 +154,37 @@ function Prodinfo() {
     mcontract.methods.setStock(prodId, newStock).send({ from: blcAcc });
   };
 
+  // Function to get reviews
+  const getReviews = async () => {
+    // Iterate over the reviews and present them
+    const count = await mcontract.methods.reviewCount().call(); // Get how many reviews there are
+
+    // Temporary array
+    let tempArray = [];
+
+    console.log(prodId);
+    for (let i = 1; i <= count; i++) {
+      const review = await mcontract.methods.reviews(i).call();
+      console.log(review.prodId);
+      const tId = parseInt(review.prodId);
+      if (tId === prodId) {
+        tempArray.push(review);
+      }
+    }
+    setReview(tempArray);
+  };
+
   useEffect(() => {
     loadBlockChain();
+  }, []);
+
+  useEffect(() => {
     getProduct();
-  });
+  }, [mcontract]);
+
+  useEffect(() => {
+    getReviews();
+  }, [getProduct]);
 
   return (
     <Container
@@ -254,9 +282,19 @@ function Prodinfo() {
       </Row>
 
       {/*  This part is for the review section */}
-      <Row className="mt-4">
-        <Col></Col>
-      </Row>
+      {review.map((item) => {
+        return (
+          <Row
+            className="mt-4 pb-4"
+            style={{ borderBottom: "1px solid black" }}
+          >
+            <Row>{item.reviewee}</Row>
+            <Row>
+              <Col>{item.text}</Col>
+            </Row>
+          </Row>
+        );
+      })}
     </Container>
   );
 }
